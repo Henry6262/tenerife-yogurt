@@ -8,16 +8,17 @@
   }
   body {
     font-family: 'Inter', sans-serif;
-    background: #FAFAF9;
+    background: #FAF6EF;
     color: #1C1917;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
   h1, h2, h3 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 700;
-    line-height: 1.1;
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
   }
 }
 
@@ -34,7 +35,34 @@
   }
   @media (min-width: 1024px) {
     .section-container {
-      padding: 0 20%;
+      padding: 0 18%;
     }
   }
+
+  /* Eyebrow / kicker label */
+  .label {
+    text-transform: uppercase;
+    letter-spacing: 0.26em;
+    font-size: 0.72rem;
+    font-weight: 600;
+  }
+
+  /* Warm gradient ink for accent words */
+  .accent-text {
+    background: linear-gradient(120deg, #C36A4C 0%, #C9A961 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+/* Film grain overlay — fixed, ultra-subtle, sits above everything */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }

@@ -12,9 +12,9 @@ export default function Story() {
       <div className="absolute inset-0 z-0">
         <Suspense fallback={<div className="w-full h-full bg-gradient-to-br from-primary-light/10 to-background" />}>
           <Grainient
-            color1="#DBEAFE"
-            color2="#2563EB"
-            color3="#FAFAF9"
+            color1="#EDD9CD"
+            color2="#E6C79B"
+            color3="#FAF6EF"
             grainAmount={0.05}
             contrast={1.2}
             warpStrength={0.5}

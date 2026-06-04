@@ -9,7 +9,7 @@ function SceneContents() {
     <>
       <ambientLight intensity={0.6} />
       <directionalLight position={[5, 5, 5]} intensity={1.2} castShadow />
-      <directionalLight position={[-3, 2, -5]} intensity={0.4} color="#DBEAFE" />
+      <directionalLight position={[-3, 2, -5]} intensity={0.4} color="#E6C79B" />
       <Suspense fallback={null}>
         <BreakfastStage />
         <Environment preset="city" />

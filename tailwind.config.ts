@@ -9,25 +9,37 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Warm Cream Premium — terracotta/rose accent, gold + sage secondaries
         primary: {
-          DEFAULT: '#2563EB',
-          light: '#DBEAFE',
-          dark: '#1D4ED8',
+          DEFAULT: '#C36A4C', // terracotta / rose
+          light: '#EDD9CD',
+          dark: '#A8543B',
+        },
+        gold: {
+          DEFAULT: '#C9A961',
+          light: '#E4D2A6',
+          dark: '#A8893F',
+        },
+        sage: {
+          DEFAULT: '#7A8A6F',
+          light: '#AFBBA4',
+          dark: '#5C6A52',
         },
         accent: {
-          DEFAULT: '#059669',
-          light: '#10b981',
+          DEFAULT: '#7A8A6F', // sage (kept for legacy text-accent usage)
+          light: '#AFBBA4',
         },
-        background: '#FAFAF9',
-        foreground: '#1C1917',
-        muted: '#78716C',
+        background: '#FAF6EF', // warm cream
+        surface: '#F3ECE0',
+        foreground: '#1C1917', // near-black ink
+        muted: '#8A817C',
         card: '#FFFFFF',
-        border: '#E7E5E4',
+        border: '#EBE4D8',
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
-        heading: ['Space Grotesk', 'sans-serif'],
-        serif: ['Playfair Display', 'serif'],
+        heading: ['Fraunces', 'Georgia', 'serif'],
+        serif: ['Fraunces', 'Georgia', 'serif'],
       },
       borderRadius: {
         xl: '1rem',
