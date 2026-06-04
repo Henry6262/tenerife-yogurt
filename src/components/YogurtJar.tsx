@@ -17,18 +17,18 @@ export default function YogurtJar() {
   // Compute scale based on viewport width
   const isMobile = viewport.width < 6;
   const baseScale = isMobile
-    ? Math.min(1.0, Math.max(0.6, viewport.width / 5))
-    : Math.min(2.2, Math.max(1.2, viewport.width / 3.5));
+    ? Math.min(0.9, Math.max(0.55, viewport.width / 5.5))
+    : Math.min(1.55, Math.max(0.95, viewport.width / 4.8));
 
   useFrame((_, delta) => {
     if (!groupRef.current) return;
 
     const progress = scrollRef.global.progress;
 
-    // Position: right side on desktop, bottom-center on mobile
+    // Position: right side on desktop (inset so it's fully visible), bottom-center on mobile
     const targetX = isMobile
       ? 0
-      : viewport.width / 2 - baseScale * 0.6;
+      : viewport.width / 2 - baseScale * 1.15;
     const targetY = isMobile
       ? -viewport.height * 0.25 + Math.sin(Date.now() * 0.0008) * 0.08
       : -viewport.height * 0.05 + Math.sin(Date.now() * 0.0008) * 0.08;
