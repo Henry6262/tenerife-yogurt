@@ -39,7 +39,7 @@ const plans = [
 
 export default function Pricing() {
   return (
-    <section id="pricing" className="relative z-10 py-24 lg:py-32 bg-gradient-to-b from-white to-background">
+    <section id="pricing" className="relative z-10 py-24 lg:py-32">
       <div className="section-container">
         <FadeContent blur duration={1000}>
           <div className="text-center max-w-2xl mx-auto mb-16">

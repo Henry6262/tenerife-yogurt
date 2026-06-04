@@ -1,12 +1,10 @@
-import { lazy, Suspense, type ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { BUSINESS } from '@/data/business';
 import HeroJar from '@/components/HeroJar';
 import ShinyText from '@/free/TextAnimations/ShinyText/ShinyText';
 import CountUp from '@/free/TextAnimations/CountUp/CountUp';
 import AnimatedContent from '@/free/Animations/AnimatedContent/AnimatedContent';
-
-const Silk = lazy(() => import('@/free/Backgrounds/Silk/Silk'));
 
 function Stat({ value, label }: { value: ReactNode; label: string }) {
   return (
@@ -22,18 +20,7 @@ function Stat({ value, label }: { value: ReactNode; label: string }) {
 export default function Hero() {
   return (
     <section id="hero" className="relative min-h-screen overflow-hidden pt-16">
-      {/* Warm shader background + cream scrims for readability */}
-      <div className="absolute inset-0 z-0">
-        <Suspense fallback={null}>
-          <div className="absolute inset-0 opacity-[0.35]">
-            <Silk color="#E6C79B" speed={3} scale={1.4} noiseIntensity={1.1} rotation={0.2} />
-          </div>
-        </Suspense>
-        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/35 to-background" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_28%_38%,rgba(250,246,239,0.7),transparent_62%)]" />
-      </div>
-
-      {/* Two-column hero: text left, 3D jar right */}
+      {/* Two-column hero: text left, 3D jar right (global Silk shows through) */}
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-10 min-h-[calc(100vh-4rem)] grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
         {/* LEFT — text */}
         <AnimatedContent distance={60} duration={1} ease="power3.out" className="text-center lg:text-left order-2 lg:order-1">

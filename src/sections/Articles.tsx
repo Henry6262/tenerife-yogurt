@@ -28,7 +28,7 @@ export default function Articles() {
   }));
 
   return (
-    <section id="articles" className="relative z-10 py-24 lg:py-32 bg-background">
+    <section id="articles" className="relative z-10 py-24 lg:py-32">
       <Helmet>
         <script type="application/ld+json">
           {JSON.stringify(articleSchemas)}

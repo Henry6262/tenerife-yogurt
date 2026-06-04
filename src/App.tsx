@@ -2,6 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import { ScrollProvider } from '@/components/ScrollContext';
 import { SmoothScroll } from '@/components/SmoothScroll';
 import { Grain } from '@/components/Grain';
+import SilkBackground from '@/components/SilkBackground';
 import Scene3D from '@/components/Scene3D';
 import Navbar from '@/sections/Navbar';
 import Hero from '@/sections/Hero';
@@ -31,6 +32,7 @@ export default function App() {
       </Helmet>
 
       <SmoothScroll />
+      <SilkBackground />
       <Grain />
       <Scene3D />
       <Navbar />

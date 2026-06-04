@@ -1,28 +1,10 @@
-import { lazy, Suspense } from 'react';
 import { BUSINESS } from '@/data/business';
 import FadeContent from '@/components/FadeContent';
 import SectionTrigger from '@/components/SectionTrigger';
 
-const Grainient = lazy(() => import('@/components/Grainient'));
-
 export default function Story() {
   return (
     <SectionTrigger id="story" className="relative py-24 lg:py-32 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 z-0">
-        <Suspense fallback={<div className="w-full h-full bg-gradient-to-br from-primary-light/10 to-background" />}>
-          <Grainient
-            color1="#EDD9CD"
-            color2="#E6C79B"
-            color3="#FAF6EF"
-            grainAmount={0.05}
-            contrast={1.2}
-            warpStrength={0.5}
-            className="opacity-40"
-          />
-        </Suspense>
-      </div>
-
       <div className="section-container relative z-10 pointer-events-auto">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <FadeContent blur duration={1200}>

@@ -6,7 +6,7 @@ const ChromaCard = lazy(() => import('@/components/ChromaCard'));
 
 export default function Athletes() {
   return (
-    <section id="athletes" className="relative z-10 py-24 lg:py-32 bg-gradient-to-b from-background to-white">
+    <section id="athletes" className="relative z-10 py-24 lg:py-32">
       <div className="section-container">
         <FadeContent blur duration={1000}>
           <div className="text-center max-w-2xl mx-auto mb-16">
