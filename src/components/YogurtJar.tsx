@@ -33,8 +33,9 @@ export default function YogurtJar() {
       ? -viewport.height * 0.25 + Math.sin(Date.now() * 0.0008) * 0.08
       : -viewport.height * 0.05 + Math.sin(Date.now() * 0.0008) * 0.08;
 
-    // As user scrolls down, rotate and drift away
-    const scrollInfluence = Math.min(1, progress * 4);
+    // As user scrolls past the hero, rotate, drift down and clear out
+    // (fast ramp so the jar is gone by the time the 2nd section's bowl appears)
+    const scrollInfluence = Math.min(1, progress * 9);
 
     groupRef.current.position.x = THREE.MathUtils.lerp(
       groupRef.current.position.x,
@@ -43,7 +44,7 @@ export default function YogurtJar() {
     );
     groupRef.current.position.y = THREE.MathUtils.lerp(
       groupRef.current.position.y,
-      targetY - scrollInfluence * 2,
+      targetY - scrollInfluence * 5,
       delta * 2
     );
 
@@ -59,8 +60,8 @@ export default function YogurtJar() {
       delta * 2
     );
 
-    // Fade scale slightly as user scrolls far down
-    const targetScale = baseScale * (1 - scrollInfluence * 0.3);
+    // Shrink away as user scrolls past the hero
+    const targetScale = baseScale * (1 - scrollInfluence * 0.85);
     groupRef.current.scale.setScalar(
       THREE.MathUtils.lerp(groupRef.current.scale.x, targetScale, delta * 2)
     );

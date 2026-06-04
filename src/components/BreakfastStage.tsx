@@ -4,185 +4,164 @@ import { useGLTF, Float } from '@react-three/drei';
 import * as THREE from 'three';
 import { useScrollRef } from './ScrollContext';
 
-/* ─────────── GLB assets ─────────── */
+/* ─────────── GLB fruit models (cloned so each instance is independent) ─────────── */
 
-function StrawberryModel({ refProp }: { refProp: React.RefObject<THREE.Group> }) {
-  const { scene } = useGLTF('/strawberry.glb');
-  const clone = useMemo(() => scene.clone(), [scene]);
-  return <primitive ref={refProp} object={clone} />;
+function useClonedScene(url: string) {
+  const { scene } = useGLTF(url);
+  return useMemo(() => scene.clone(), [scene]);
 }
 
-function BlueberryModel({ refProp }: { refProp: React.RefObject<THREE.Group> }) {
-  const { scene } = useGLTF('/blueberry.glb');
-  const clone = useMemo(() => scene.clone(), [scene]);
-  return <primitive ref={refProp} object={clone} />;
+function FruitModel({ type }: { type: FruitDef['type'] }) {
+  const url =
+    type === 'strawberry' ? '/strawberry.glb'
+    : type === 'blueberry' ? '/blueberry.glb'
+    : type === 'almond' ? '/almond.glb'
+    : '/helzenut.glb';
+  const clone = useClonedScene(url);
+  return <primitive object={clone} />;
 }
 
-function AlmondModel({ refProp }: { refProp: React.RefObject<THREE.Group> }) {
-  const { scene } = useGLTF('/almond.glb');
-  const clone = useMemo(() => scene.clone(), [scene]);
-  return <primitive ref={refProp} object={clone} />;
-}
-
-function HazelnutModel({ refProp }: { refProp: React.RefObject<THREE.Group> }) {
-  const { scene } = useGLTF('/helzenut.glb');
-  const clone = useMemo(() => scene.clone(), [scene]);
-  return <primitive ref={refProp} object={clone} />;
-}
-
-/* ─────────── Placeholder bowl ─────────── */
+/* ─────────── Simple procedural bowl (placeholder "recipiente") ─────────── */
 
 function Bowl() {
   return (
     <group>
+      {/* Outer wall */}
       <mesh castShadow receiveShadow>
-        <cylinderGeometry args={[1.2, 0.9, 0.8, 32, 1, true]} />
-        <meshStandardMaterial color="#E8D5C4" side={THREE.DoubleSide} roughness={0.4} />
+        <cylinderGeometry args={[1.15, 0.78, 0.85, 48, 1, true]} />
+        <meshStandardMaterial color="#EFE6DA" side={THREE.DoubleSide} roughness={0.35} metalness={0.05} />
       </mesh>
-      <mesh position={[0, -0.4, 0]} castShadow receiveShadow>
-        <cylinderGeometry args={[0.9, 0.9, 0.05, 32]} />
-        <meshStandardMaterial color="#E8D5C4" roughness={0.4} />
+      {/* Base disk */}
+      <mesh position={[0, -0.42, 0]} castShadow receiveShadow>
+        <cylinderGeometry args={[0.78, 0.78, 0.06, 48]} />
+        <meshStandardMaterial color="#E2D5C5" roughness={0.4} />
       </mesh>
-      <mesh position={[0, -0.1, 0]} castShadow receiveShadow>
-        <cylinderGeometry args={[1.1, 0.85, 0.55, 32]} />
-        <meshStandardMaterial color="#FDF6E3" roughness={0.6} />
+      {/* Yogurt fill */}
+      <mesh position={[0, -0.05, 0]} receiveShadow>
+        <cylinderGeometry args={[1.02, 0.8, 0.5, 48]} />
+        <meshStandardMaterial color="#FBF7EF" roughness={0.65} />
       </mesh>
     </group>
   );
 }
 
-/* ─────────── fruit instance data ─────────── */
+/* ─────────── Fruit instance data — LOCAL coords relative to the bowl center ─────────── */
 
 interface FruitDef {
   type: 'strawberry' | 'blueberry' | 'almond' | 'hazelnut';
-  startX: number;
-  startZ: number;
-  startY: number;
   endX: number;
   endZ: number;
   endY: number;
-  endRotX: number;
-  endRotY: number;
-  endRotZ: number;
   scale: number;
-  triggerStart: number; // 0-1 section progress when this fruit starts falling
-  triggerEnd: number;   // 0-1 section progress when this fruit lands
+  triggerStart: number; // section progress (0-1) when this fruit starts falling
 }
 
+// Fall span: each fruit takes ~0.16 of section progress to land.
+const FALL_SPAN = 0.16;
+
+// All land within the bowl's inner radius (~1.0 local). Stacked: later fruits rest higher.
 const FRUITS: FruitDef[] = [
   // Wave 1
-  { type: 'strawberry', startX: -0.4, startZ: 0.2, startY: 3.5, endX: -0.35, endZ: 0.15, endY: 0.15, endRotX: 0.2, endRotY: 0.5, endRotZ: 0.1, scale: 0.5, triggerStart: 0.15, triggerEnd: 0.30 },
-  { type: 'blueberry',  startX: 0.3,  startZ: -0.1, startY: 4.0, endX: 0.25,  endZ: -0.05, endY: 0.25, endRotX: 0.1, endRotY: 0.3, endRotZ: 0.2, scale: 0.35, triggerStart: 0.17, triggerEnd: 0.32 },
-  { type: 'blueberry',  startX: -0.2, startZ: -0.3, startY: 3.8, endX: -0.15, endZ: -0.2, endY: 0.30, endRotX: 0.3, endRotY: 0.1, endRotZ: 0.15, scale: 0.35, triggerStart: 0.19, triggerEnd: 0.34 },
-  { type: 'blueberry',  startX: 0.5,  startZ: 0.3,  startY: 4.2, endX: 0.4,   endZ: 0.2,   endY: 0.20, endRotX: 0.15, endRotY: 0.4, endRotZ: 0.1, scale: 0.35, triggerStart: 0.21, triggerEnd: 0.36 },
+  { type: 'strawberry', endX: -0.30, endZ: 0.18, endY: 0.02, scale: 0.45, triggerStart: 0.12 },
+  { type: 'blueberry', endX: 0.26, endZ: -0.10, endY: 0.06, scale: 0.30, triggerStart: 0.15 },
+  { type: 'blueberry', endX: -0.12, endZ: -0.26, endY: 0.06, scale: 0.30, triggerStart: 0.18 },
+  { type: 'almond', endX: 0.34, endZ: 0.22, endY: 0.10, scale: 0.34, triggerStart: 0.21 },
   // Wave 2
-  { type: 'strawberry', startX: 0.1,  startZ: 0.4,  startY: 3.6, endX: 0.1,   endZ: 0.3,   endY: 0.20, endRotX: 0.25, endRotY: 0.6, endRotZ: 0.05, scale: 0.5, triggerStart: 0.35, triggerEnd: 0.48 },
-  { type: 'almond',     startX: -0.5, startZ: 0.1,  startY: 4.0, endX: -0.4,  endZ: 0.05,  endY: 0.35, endRotX: 0.2, endRotY: 0.2, endRotZ: 0.3, scale: 0.4, triggerStart: 0.38, triggerEnd: 0.51 },
-  { type: 'almond',     startX: 0.4,  startZ: -0.4, startY: 3.9, endX: 0.35,  endZ: -0.3,  endY: 0.30, endRotX: 0.1, endRotY: 0.5, endRotZ: 0.2, scale: 0.4, triggerStart: 0.40, triggerEnd: 0.53 },
-  { type: 'blueberry',  startX: -0.1, startZ: 0.35, startY: 4.1, endX: -0.05, endZ: 0.25,  endY: 0.28, endRotX: 0.3, endRotY: 0.2, endRotZ: 0.1, scale: 0.35, triggerStart: 0.42, triggerEnd: 0.55 },
+  { type: 'strawberry', endX: 0.05, endZ: 0.30, endY: 0.16, scale: 0.45, triggerStart: 0.34 },
+  { type: 'blueberry', endX: 0.40, endZ: 0.02, endY: 0.18, scale: 0.30, triggerStart: 0.37 },
+  { type: 'almond', endX: -0.40, endZ: 0.08, endY: 0.20, scale: 0.34, triggerStart: 0.40 },
+  { type: 'hazelnut', endX: 0.16, endZ: -0.32, endY: 0.22, scale: 0.38, triggerStart: 0.43 },
   // Wave 3
-  { type: 'hazelnut',   startX: 0.3,  startZ: 0.1,  startY: 3.7, endX: 0.2,   endZ: 0.05,  endY: 0.40, endRotX: 0.2, endRotY: 0.4, endRotZ: 0.25, scale: 0.45, triggerStart: 0.55, triggerEnd: 0.68 },
-  { type: 'hazelnut',   startX: -0.3, startZ: -0.2, startY: 3.8, endX: -0.25, endZ: -0.15, endY: 0.35, endRotX: 0.15, endRotY: 0.3, endRotZ: 0.2, scale: 0.45, triggerStart: 0.58, triggerEnd: 0.71 },
-  { type: 'strawberry', startX: 0.05, startZ: -0.35, startY: 3.5, endX: 0.0,   endZ: -0.25, endY: 0.18, endRotX: 0.3, endRotY: 0.5, endRotZ: 0.15, scale: 0.5, triggerStart: 0.60, triggerEnd: 0.73 },
-  { type: 'blueberry',  startX: 0.45, startZ: 0.25, startY: 4.0, endX: 0.35,  endZ: 0.15,  endY: 0.22, endRotX: 0.2, endRotY: 0.1, endRotZ: 0.3, scale: 0.35, triggerStart: 0.63, triggerEnd: 0.76 },
+  { type: 'hazelnut', endX: -0.30, endZ: -0.08, endY: 0.30, scale: 0.38, triggerStart: 0.56 },
+  { type: 'strawberry', endX: -0.04, endZ: 0.02, endY: 0.34, scale: 0.45, triggerStart: 0.59 },
+  { type: 'blueberry', endX: 0.30, endZ: 0.30, endY: 0.34, scale: 0.30, triggerStart: 0.62 },
+  { type: 'blueberry', endX: -0.34, endZ: 0.26, endY: 0.36, scale: 0.30, triggerStart: 0.65 },
 ];
 
-/* ─────────── single falling fruit ─────────── */
+const DROP_FROM = 5.0; // local Y the fruit starts falling from (above the bowl)
+
+/* ─────────── A single fruit falling from the top into the bowl ─────────── */
 
 function FallingFruit({ def, progress }: { def: FruitDef; progress: number }) {
   const groupRef = useRef<THREE.Group>(null);
-  const rotRef = useRef(new THREE.Euler(0, 0, 0));
+  const rot = useRef(new THREE.Euler(0, 0, 0));
 
   useFrame((_, delta) => {
     if (!groupRef.current) return;
-    const t = THREE.MathUtils.clamp(
-      (progress - def.triggerStart) / (def.triggerEnd - def.triggerStart),
-      0,
-      1
-    );
+    const t = THREE.MathUtils.clamp((progress - def.triggerStart) / FALL_SPAN, 0, 1);
+    const speed = delta * 5;
 
-    const speed = delta * 4;
-
-    // Bounce easing on Y
-    const y = THREE.MathUtils.lerp(def.startY, def.endY, easeOutBounce(t));
-    groupRef.current.position.x = THREE.MathUtils.lerp(groupRef.current.position.x, def.startX + (def.endX - def.startX) * t, speed);
+    // X/Z drift gently to their resting spot; Y falls with a bounce.
+    groupRef.current.position.x = THREE.MathUtils.lerp(groupRef.current.position.x, def.endX, speed);
+    groupRef.current.position.z = THREE.MathUtils.lerp(groupRef.current.position.z, def.endZ, speed);
+    const y = THREE.MathUtils.lerp(DROP_FROM, def.endY, easeOutBounce(t));
     groupRef.current.position.y = THREE.MathUtils.lerp(groupRef.current.position.y, y, speed);
-    groupRef.current.position.z = THREE.MathUtils.lerp(groupRef.current.position.z, def.startZ + (def.endZ - def.startZ) * t, speed);
 
-    // Scale in
+    // Scale in quickly once it starts
     const s = t > 0 ? THREE.MathUtils.lerp(0.2, def.scale, easeOutQuad(Math.min(1, t * 3))) : 0;
     groupRef.current.scale.setScalar(THREE.MathUtils.lerp(groupRef.current.scale.x, s, speed));
 
-    // Rotation: tumble while falling, settle at end
-    const rotSpeed = t < 0.9 ? delta * 8 : delta * 2;
-    rotRef.current.x = THREE.MathUtils.lerp(rotRef.current.x, def.endRotX * t + (1 - t) * 4, rotSpeed);
-    rotRef.current.y = THREE.MathUtils.lerp(rotRef.current.y, def.endRotY * t + (1 - t) * 6, rotSpeed);
-    rotRef.current.z = THREE.MathUtils.lerp(rotRef.current.z, def.endRotZ * t + (1 - t) * 2, rotSpeed);
-    groupRef.current.rotation.copy(rotRef.current);
+    // Tumble while falling, settle when landed
+    const tumble = t < 0.85 ? delta * 7 : delta * 2.5;
+    rot.current.x = THREE.MathUtils.lerp(rot.current.x, (1 - t) * 5, tumble);
+    rot.current.y = THREE.MathUtils.lerp(rot.current.y, (1 - t) * 7 + 0.4, tumble);
+    rot.current.z = THREE.MathUtils.lerp(rot.current.z, (1 - t) * 3, tumble);
+    groupRef.current.rotation.copy(rot.current);
   });
 
-  if (progress <= def.triggerStart - 0.05) return null;
+  // Don't mount until just before it's due to fall
+  if (progress < def.triggerStart - 0.03) return null;
 
   return (
-    <group ref={groupRef} scale={0}>
-      {def.type === 'strawberry' && <StrawberryModel refProp={groupRef} />}
-      {def.type === 'blueberry' && <BlueberryModel refProp={groupRef} />}
-      {def.type === 'almond' && <AlmondModel refProp={groupRef} />}
-      {def.type === 'hazelnut' && <HazelnutModel refProp={groupRef} />}
+    <group ref={groupRef} position={[def.endX, DROP_FROM, def.endZ]} scale={0}>
+      <FruitModel type={def.type} />
     </group>
   );
 }
 
-/* ─────────── stage ─────────── */
+/* ─────────── Stage: bowl + fruits, sharing one parent group so fruits land INSIDE the bowl ─────────── */
 
 export default function BreakfastStage() {
   const { viewport } = useThree();
   const scrollRef = useScrollRef();
-  const bowlRef = useRef<THREE.Group>(null);
+  const stageRef = useRef<THREE.Group>(null);
 
-  const targetX = useMemo(() => viewport.width / 2 - 1.6, [viewport.width]);
-  const targetY = useMemo(() => -viewport.height * 0.05, [viewport.height]);
+  const isMobile = viewport.width < 6;
+  const targetX = isMobile ? 0 : viewport.width / 2 - 2.1;
+  const targetY = isMobile ? -viewport.height * 0.18 : -0.4;
+  const baseScale = isMobile ? 1.05 : 1.5;
 
   useFrame((_, delta) => {
+    if (!stageRef.current) return;
     const section = scrollRef.sections.get('story');
     const progress = section?.progress ?? 0;
     const isActive = section?.isActive ?? false;
-
-    if (!bowlRef.current) return;
     const speed = delta * 3;
 
-    // Bowl entrance 0→0.15
-    const bowlT = THREE.MathUtils.clamp(progress / 0.15, 0, 1);
-    const bowlY = THREE.MathUtils.lerp(-viewport.height * 0.8, targetY, easeOutQuad(bowlT));
-    bowlRef.current.position.x = THREE.MathUtils.lerp(bowlRef.current.position.x, targetX, speed);
-    bowlRef.current.position.y = THREE.MathUtils.lerp(bowlRef.current.position.y, bowlY, speed);
-    bowlRef.current.rotation.y = THREE.MathUtils.lerp(bowlRef.current.rotation.y, Math.PI * 0.1 * bowlT, speed);
-    const bowlS = THREE.MathUtils.lerp(0.4, 1.3, easeOutQuad(bowlT));
-    bowlRef.current.scale.setScalar(THREE.MathUtils.lerp(bowlRef.current.scale.x, bowlS, speed));
+    // Entrance: the bowl pops in over the first 12% of the section.
+    const entrance = THREE.MathUtils.clamp(progress / 0.12, 0, 1);
+    let s = THREE.MathUtils.lerp(0.25, baseScale, easeOutQuad(entrance));
 
-    // Fade out when section is far past
-    if (!isActive && progress > 0.95) {
-      const fade = THREE.MathUtils.lerp(bowlRef.current.scale.x, 0, speed);
-      bowlRef.current.scale.setScalar(fade);
-    }
+    // Exit: once we've scrolled well past the section, shrink away.
+    if (!isActive && progress > 0.97) s = 0;
+
+    stageRef.current.scale.setScalar(THREE.MathUtils.lerp(stageRef.current.scale.x, s, speed));
+    stageRef.current.position.x = THREE.MathUtils.lerp(stageRef.current.position.x, targetX, speed);
+    stageRef.current.position.y = THREE.MathUtils.lerp(stageRef.current.position.y, targetY, speed);
   });
 
-  const section = scrollRef.sections.get('story');
-  const progress = section?.progress ?? 0;
-
-  if (progress < 0.01) return null;
+  const progress = scrollRef.sections.get('story')?.progress ?? 0;
+  if (progress < 0.005) return null;
 
   return (
-    <>
-      <Float speed={0.4} floatIntensity={0.15} rotationIntensity={0.05} floatingRange={[-0.05, 0.05]}>
-        <group ref={bowlRef}>
-          <Bowl />
-        </group>
+    <group ref={stageRef} position={[targetX, targetY, 0]} scale={0.25}>
+      <Float speed={0.5} floatIntensity={0.12} rotationIntensity={0.04} floatingRange={[-0.04, 0.04]}>
+        <Bowl />
+        {FRUITS.map((def, i) => (
+          <FallingFruit key={i} def={def} progress={progress} />
+        ))}
       </Float>
-      {FRUITS.map((def, i) => (
-        <FallingFruit key={i} def={def} progress={progress} />
-      ))}
-    </>
+    </group>
   );
 }
 
