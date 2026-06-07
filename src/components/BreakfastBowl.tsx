@@ -126,7 +126,8 @@ function Stage({ progressRef }: { progressRef: ProgRef }) {
 export default function BreakfastBowl({ progressRef }: { progressRef: ProgRef }) {
   return (
     <Canvas
-      camera={{ fov: 42, near: 0.1, far: 100, position: [0, 0.4, 6] }}
+      camera={{ fov: 42, near: 0.1, far: 100, position: [0, 1.7, 5.8] }}
+      onCreated={({ camera }) => camera.lookAt(0, -0.2, 0)}
       gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
       style={{ background: 'transparent' }}
       dpr={[1, 2]}
