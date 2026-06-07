@@ -3,6 +3,7 @@ import { useLang } from '@/i18n/LangContext';
 import Hero from '@/sections/Hero';
 import DualGateway from '@/sections/DualGateway';
 import ProductLine from '@/sections/ProductLine';
+import Breakfast from '@/sections/Breakfast';
 import Subscriptions from '@/sections/Subscriptions';
 import CircleProtocol from '@/sections/CircleProtocol';
 import Transparency from '@/sections/Transparency';
@@ -31,6 +32,7 @@ export default function Home() {
       <Hero />
       <DualGateway />
       <ProductLine />
+      <Breakfast />
       <Subscriptions />
       <CircleProtocol />
       <Transparency />

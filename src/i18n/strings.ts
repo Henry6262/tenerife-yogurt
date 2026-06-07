@@ -51,6 +51,14 @@ export const STRINGS = {
     'transparency.process': 'Der Prozess',
     'transparency.heritage': '4.000 Jahre Tradition in jedem Glas.',
 
+    'breakfast.eyebrow': 'Das Ritual',
+    'breakfast.title': 'Mach ein Frühstück daraus',
+    'breakfast.body': 'Ein Löffel Krava, eine Handvoll Beeren, geröstete Mandeln und Haselnüsse. Scrolle und schau zu, wie sich die Schale füllt.',
+    'breakfast.t1': 'Erdbeeren',
+    'breakfast.t2': 'Heidelbeeren',
+    'breakfast.t3': 'Mandeln',
+    'breakfast.t4': 'Haselnüsse',
+
     'form.name': 'Name',
     'form.email': 'E-Mail',
     'form.address': 'Lieferadresse',
@@ -143,6 +151,14 @@ export const STRINGS = {
     'transparency.culture': 'The culture',
     'transparency.process': 'The process',
     'transparency.heritage': '4,000 years of tradition in every jar.',
+
+    'breakfast.eyebrow': 'The ritual',
+    'breakfast.title': 'Make it a breakfast',
+    'breakfast.body': 'A spoon of Krava, a handful of berries, toasted almonds and hazelnuts. Scroll and watch the bowl fill.',
+    'breakfast.t1': 'Strawberries',
+    'breakfast.t2': 'Blueberries',
+    'breakfast.t3': 'Almonds',
+    'breakfast.t4': 'Hazelnuts',
 
     'form.name': 'Name',
     'form.email': 'Email',
