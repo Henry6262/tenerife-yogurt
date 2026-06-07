@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { ArrowUp } from 'lucide-react';
+import { useLang } from '@/i18n/LangContext';
 
 export default function ScrollToTop() {
+  const { t } = useLang();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -16,7 +18,7 @@ export default function ScrollToTop() {
     <button
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
       className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-primary text-white shadow-lg shadow-primary/30 flex items-center justify-center hover:bg-primary-dark hover:-translate-y-1 transition-all"
-      aria-label="Volver arriba"
+      aria-label={t('scrolltop')}
     >
       <ArrowUp size={20} />
     </button>
