@@ -45,7 +45,7 @@ export const STRINGS = {
     'circle.b2b.title': 'Für die Gastronomie',
 
     'transparency.eyebrow': 'Herkunft',
-    'transparency.title': 'Schweizer Reinheit, bulgarische Seele',
+    'transparency.title': 'Vom Hof ins Glas',
     'transparency.milk': 'Die Milch',
     'transparency.culture': 'Die Kultur',
     'transparency.process': 'Der Prozess',
@@ -148,7 +148,7 @@ export const STRINGS = {
     'circle.b2b.title': 'For gastronomy',
 
     'transparency.eyebrow': 'Provenance',
-    'transparency.title': 'Swiss purity, Bulgarian soul',
+    'transparency.title': 'From farm to jar',
     'transparency.milk': 'The milk',
     'transparency.culture': 'The culture',
     'transparency.process': 'The process',

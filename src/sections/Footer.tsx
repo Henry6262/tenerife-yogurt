@@ -26,7 +26,7 @@ export default function Footer() {
         {/* Single row: brand · links · contact */}
         <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-3">
-            <img src="/krava-logo.jpg" alt="Krava" className="w-10 h-10 rounded-full object-cover" />
+            <img src="/krava-logo.jpg" alt="" aria-hidden="true" className="w-10 h-10 rounded-full object-cover" />
             <div className="flex flex-col">
               <span className="font-heading font-bold text-xl text-white leading-none">{BRAND.name}</span>
               <span className="text-xs text-white/40 mt-1">{t('footer.tagline')}</span>

@@ -28,7 +28,7 @@ export const BRAND = {
     de: 'Schweizer Reinheit, bulgarische Seele',
     en: 'Swiss Purity, Bulgarian Soul',
   } as L,
-  location: 'Zürich, Schweiz',
+  location: 'Zürich',
   currency: 'CHF',
   contact: { email: 'hallo@krava.ch', instagram: '', whatsapp: '' },
   impressum: {

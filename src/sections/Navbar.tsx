@@ -61,7 +61,7 @@ export default function Navbar() {
     >
       <div className="container-landing flex items-center justify-between h-16">
         <Link to="/" className="flex items-center gap-2.5 font-heading font-bold text-xl tracking-tight text-primary">
-          <img src="/krava-logo.jpg" alt="Krava" className="w-9 h-9 rounded-full object-cover ring-1 ring-border" />
+          <img src="/krava-logo.jpg" alt="" aria-hidden="true" className="w-9 h-9 rounded-full object-cover ring-1 ring-border" />
           {BRAND.name}
         </Link>
 
