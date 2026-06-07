@@ -8,7 +8,7 @@ import {
   type ReactNode,
   type MutableRefObject,
 } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { useGLTF, Float, Environment } from '@react-three/drei';
 import * as THREE from 'three';
 
@@ -97,10 +97,26 @@ function SafeModel({ type }: { type: FruitType }) {
   );
 }
 
-/** Your branded bowl GLB; falls back to the procedural bowl until /bowl.glb exists. */
+/** Your branded bowl GLB, auto-centred and scaled to the fruit coordinate space
+ *  (so the fruits land inside it regardless of the GLB's native scale/origin). */
 function GlbBowl() {
   const scene = useClonedScene('/bowl.glb');
-  return <primitive object={scene} />;
+  const fitted = useMemo(() => {
+    const box = new THREE.Box3().setFromObject(scene);
+    const size = new THREE.Vector3();
+    const center = new THREE.Vector3();
+    box.getSize(size);
+    box.getCenter(center);
+    const maxXZ = Math.max(size.x, size.z) || 1;
+    const s = 2.4 / maxXZ; // ~match the procedural bowl's outer width
+    // Centre horizontally; sit the bowl so its base is around the fruits' floor.
+    scene.position.set(-center.x, -box.min.y - size.y * 0.5, -center.z);
+    const g = new THREE.Group();
+    g.add(scene);
+    g.scale.setScalar(s);
+    return g;
+  }, [scene]);
+  return <primitive object={fitted} />;
 }
 
 function BowlSlot() {
@@ -224,15 +240,22 @@ function FallingFruit({ def, progressRef }: { def: FruitDef; progressRef: ProgRe
 
 function Stage({ progressRef }: { progressRef: ProgRef }) {
   const ref = useRef<THREE.Group>(null);
+  const { viewport } = useThree();
+  // On wide screens sit the bowl in the right half (text occupies the left);
+  // on narrow screens centre it lower.
+  const wide = viewport.width > 7;
+  const offsetX = wide ? viewport.width * 0.2 : 0;
+  const offsetY = wide ? -1.05 : -1.5;
+
   useFrame((_, delta) => {
     if (!ref.current) return;
     const entrance = THREE.MathUtils.clamp(progressRef.current / 0.1, 0, 1);
-    const s = THREE.MathUtils.lerp(0.6, 1.55, easeOutQuad(entrance));
+    const s = THREE.MathUtils.lerp(0.6, 1.5, easeOutQuad(entrance));
     ref.current.scale.setScalar(THREE.MathUtils.lerp(ref.current.scale.x, s, delta * 3));
   });
 
   return (
-    <group ref={ref} position={[0, -0.35, 0]} scale={0.6}>
+    <group ref={ref} position={[offsetX, offsetY, 0]} scale={0.6}>
       <Float speed={0.5} floatIntensity={0.12} rotationIntensity={0.04} floatingRange={[-0.04, 0.04]}>
         <BowlSlot />
         {FRUITS.map((def, i) => (
@@ -246,8 +269,8 @@ function Stage({ progressRef }: { progressRef: ProgRef }) {
 export default function BreakfastBowl({ progressRef }: { progressRef: ProgRef }) {
   return (
     <Canvas
-      camera={{ fov: 42, near: 0.1, far: 100, position: [0, 1.45, 4.6] }}
-      onCreated={({ camera }) => camera.lookAt(0, -0.2, 0)}
+      camera={{ fov: 42, near: 0.1, far: 100, position: [0, 1.1, 6.6] }}
+      onCreated={({ camera }) => camera.lookAt(0, -0.35, 0)}
       gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
       style={{ background: 'transparent' }}
       dpr={[1, 2]}
