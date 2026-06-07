@@ -1,124 +1,160 @@
+type L = { de: string; en: string };
+
 export interface Article {
-  id: string
-  title: string
-  slug: string
-  excerpt: string
-  content: string
-  category: string
-  readTime: string
-  image: string
-  keywords: string[]
-  datePublished: string
-  author: string
+  id: string;
+  slug: string;
+  title: L;
+  excerpt: L;
+  content: L; // markdown
+  category: L;
+  readTime: string;
+  image: string;
+  keywords: string[];
+  datePublished: string;
+  author: string;
 }
 
 export const articles: Article[] = [
   {
     id: '1',
-    title: 'Cómo el Yogurt Búlgaro Curó Mi Síndrome del Intestino Irritable',
-    slug: 'yogurt-bulgaro-sindrome-intestino-irritable',
-    excerpt:
-      'Después de años de dolor abdominal, hinchazón y digestiones lentas, descubrí el yogurt búlgaro. Lo que ocurrió en las siguientes 8 semanas cambió mi vida por completo.',
-    content: `
-Durante más de cinco años, sufrí de síndrome del intestino irritable (SII). Cada comida era una ruleta rusa: ¿dolor? ¿hinchazón? ¿urgencia? Los médicos recetaron probióticos de farmacia, cambios de dieta, incluso medicación. Nada funcionó de forma consistente.
+    slug: 'live-cultures-gut-health',
+    title: {
+      de: 'Warum Darmgesundheit mit lebendigen Kulturen beginnt',
+      en: 'Why gut health starts with live cultures',
+    },
+    excerpt: {
+      de: 'Lebendige Kulturen statt pasteurisierter Leere — was echtes kiselo mlyako von Industriejoghurt unterscheidet.',
+      en: 'Live cultures over pasteurised emptiness — what real kiselo mlyako does that industrial yogurt cannot.',
+    },
+    content: {
+      de: `Die meisten Joghurts im Schweizer Supermarktregal sind funktionell tot. Sie werden nach der Fermentation erneut erhitzt, um die Haltbarkeit zu verlängern — und töten dabei genau die Bakterien ab, die deinem Darm guttun.
 
-Fue entonces cuando una amiga búlgara me habló del yogurt de su país. No el yogurt industrial que encuentras en el supermercado con la etiqueta "estilo griego". Hablaba del verdadero yogurt búlgaro: fermentado con Lactobacillus bulgaricus, una cepa nativa de los montes Ródope que lleva más de 4.000 años alimentando a pueblos enteros.
+Echtes bulgarisches kiselo mlyako geht den umgekehrten Weg. Es wird mit dem symbiotischen Duo **Lactobacillus bulgaricus** und **Streptococcus thermophilus** fermentiert und nie wieder über die Schwelle erhitzt, die diese Stämme abtötet. Was im Glas ankommt, ist lebendig.
 
-La primera semana noté cambios sutiles. Menos hinchazón después de comer. Una sensación de "ligerez" que no recordaba haber sentido nunca.
+### Was lebendige Kulturen leisten
 
-A la semana tres, el dolor abdominal que me acompañaba diariamente había disminuido drásticamente. Mis deposiciones, antes irregulares y dolorosas, se normalizaron.
+Lebendige Milchsäurebakterien besiedeln den Darm, verdrängen pathogene Keime und produzieren natürliche Bacteriocine, die die Darmschleimhaut schützen. Sie spalten Laktose vor — weshalb viele Menschen mit leichter Laktoseintoleranz echtes Joghurt besser vertragen als Milch.
 
-Para la semana ocho, mis síntomas de SII habían desaparecido en un 90%. No es magia: es microbioma. Lactobacillus bulgaricus coloniza el intestino, desplaza bacterias patógenas y produce bacteriocinas naturales que protegen la mucosa intestinal.
+### Worauf du achten solltest
 
-Hoy, dos años después, tomo yogurt búlgaro todos los días. No como tratamiento, sino como alimento. Mi intestino está sanado. Mi energía ha vuelto. Y mi relación con la comida pasó de ser una fuente de ansiedad a un placer redescubierto.
-    `,
-    category: 'Salud',
-    readTime: '6 min',
-    image: 'https://images.unsplash.com/photo-1621797350487-c8996f886ab1?w=800&h=500&fit=crop',
-    keywords: ['yogurt búlgaro intestino', 'probioticos naturales', 'sindrome intestino irritable', 'salud digestiva tenerife'],
-    datePublished: '2026-05-15',
-    author: 'Equipo Yogurt Búlgaro Tenerife',
+- **Keine zweite Erhitzung** nach der Fermentation.
+- **Keine Stabilisatoren** wie Pektin oder Stärke — echte Textur kommt aus dem Protein, nicht aus dem Labor.
+- **Kurze Zutatenliste:** Milch und Kultur. Mehr braucht es nicht.
+
+Bei Krava sieben wir von Hand und kühlen durchgehend. Das Ergebnis ist dicht, lebendig und so, wie Joghurt seit 4.000 Jahren gedacht war.`,
+      en: `Most yogurts on a Swiss supermarket shelf are functionally dead. They are re-heated after fermentation to extend shelf life — killing the very bacteria that are good for your gut.
+
+Real Bulgarian kiselo mlyako does the opposite. It is fermented with the symbiotic duo **Lactobacillus bulgaricus** and **Streptococcus thermophilus**, and never re-heated past the threshold that kills those strains. What lands in the jar is alive.
+
+### What live cultures do
+
+Live lactic-acid bacteria colonise the gut, crowd out pathogens, and produce natural bacteriocins that protect the intestinal lining. They pre-digest lactose — which is why many people with mild lactose intolerance tolerate real yogurt better than milk.
+
+### What to look for
+
+- **No second heat treatment** after fermentation.
+- **No stabilisers** like pectin or starch — real texture comes from protein, not a lab.
+- **A short ingredient list:** milk and culture. Nothing else is needed.
+
+At Krava we hand-strain and keep the cold chain unbroken. The result is dense, alive, and exactly what yogurt was meant to be for 4,000 years.`,
+    },
+    category: { de: 'Gesundheit', en: 'Health' },
+    readTime: '5 min',
+    image: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=800&h=500&fit=crop',
+    keywords: ['gut health', 'probiotics', 'lactobacillus bulgaricus', 'kiselo mlyako', 'live cultures'],
+    datePublished: '2026-05-20',
+    author: 'Krava',
   },
   {
     id: '2',
-    title: '5 Atletas de Élite que Comen Yogurt Búlgaro para Recuperación',
-    slug: 'atletas-yogurt-bulgaro-recuperacion',
-    excerpt:
-      'Desde culturistas hasta maratonianas, los deportistas de alto rendimiento están redescubriendo el poder del yogurt búlgaro como herramienta de recuperación natural.',
-    content: `
-El yogurt búlgaro no es solo un alimento tradicional: es un arma de recuperación deportiva que los atletas de élite están redescubriendo. Con 15g de proteína por tarro de 450g, una densidad de probióticos 3 veces superior al yogurt convencional y un perfil aminoacídico completo, es el complemento perfecto para quienes exigen el máximo a su cuerpo.
+    slug: 'kiselo-vs-greek-style',
+    title: {
+      de: 'Echtes kiselo mlyako vs. „Greek Style“',
+      en: 'Authentic kiselo mlyako vs. "Greek style"',
+    },
+    excerpt: {
+      de: 'Warum „griechischer Stil“ oft nur Marketing ist — und wie sich echte Tradition im Glas erkennen lässt.',
+      en: 'Why "Greek style" is often just marketing — and how to spot real tradition in the jar.',
+    },
+    content: {
+      de: `„Greek Style“ ist kein Herkunftsschutz, sondern ein Marketing-Label. Vieles, was so verkauft wird, ist mit Rahm angereichert, mit Stärke verdickt oder mit Pektin stabilisiert, um Dichte vorzutäuschen.
 
-## 1. María García — Triatleta Profesional
+Echtes kiselo mlyako erreicht seine Dichte anders: durch **Sieben**. Wir lassen die Molke bei 2–4 °C durch sterilisiertes Tuch ablaufen, bis sich das Volumen halbiert (2:1). Was bleibt, ist konzentriertes Protein und ein samtiger Körper — ganz ohne Zusätze.
 
-"Después de entrenamientos de 4 horas, mi sistema digestivo estaba destruido. Los batidos de proteína industrial me sentaban fatal. El yogurt búlgaro fue mi salvación: proteína completa, fácil de digerir, y mis niveles de energía se estabilizaron por completo."
+### Der Geschmack der Wahrheit
 
-## 2. Carlos Rodríguez — Culturista Natural
+Lactobacillus bulgaricus erzeugt Acetaldehyd und Diacetyl: jene scharfe, saubere Säure, die echtes bulgarisches Joghurt unverwechselbar macht. Industrieware schmeckt oft flach und süsslich, weil die Fermentation früh gestoppt und mit Zucker kaschiert wird.
 
-"15g de proteína natural, cero aditivos, y una biodisponibilidad que ningún suplemento sintético puede igualar. Uso yogurt búlgaro como snack post-entreno desde hace 3 años. Mi masa magra aumentó un 8% en el primer año."
+### Der Küchentest
 
-## 3. Elena Vázquez — Maratoniana
+Gib einen Löffel in eine heisse Pfanne. Echtes gesiebtes Joghurt bleibt stabil und trennt sich nicht — ein Grund, warum Küchenchefs es lieben. Stabilisierte Ware gerinnt und wässert.
 
-"Los problemas digestivos son la pesadilla de todo corredor de fondo. El yogurt búlgaro no solo eliminó mis molestias estomacales durante las carreras, sino que mi recuperación entre entrenamientos mejoró notablemente. El calcio y los probióticos son un combo ganador."
+Reinheit erkennt man nicht am Etikett, sondern am Verhalten im Glas und in der Pfanne.`,
+      en: `"Greek style" is not a protected origin — it is a marketing label. Much of what is sold that way is enriched with cream, thickened with starch, or stabilised with pectin to fake density.
 
-## 4. David López — Nadador de Aguas Abiertas
+Real kiselo mlyako reaches density differently: by **straining**. We let the whey drain through sterilised cloth at 2–4 °C until the volume halves (2:1). What remains is concentrated protein and a velvet body — with no additives at all.
 
-"Nado en aguas frías del Atlántico. La recuperación inmunitaria es clave. Desde que incluí yogurt búlgaro en mi dieta diaria, mis resfriados desaparecieron. El sistema inmune y la microbioma intestinal están directamente conectados."
+### The taste of truth
 
-## 5. Ana Fernández — Entrenadora Personal
+Lactobacillus bulgaricus produces acetaldehyde and diacetyl: that sharp, clean acidity that makes real Bulgarian yogurt unmistakable. Industrial product often tastes flat and sweetish because fermentation is stopped early and masked with sugar.
 
-"Recomiendo yogurt búlgaro a todos mis clientes. No importa si buscan perder grasa, ganar músculo o simplemente mejorar su salud general. Es el único alimento que cubre recuperación muscular, salud digestiva y soporte inmune simultáneamente."
+### The kitchen test
 
-## La Ciencia Detrás
+Drop a spoonful into a hot pan. Real strained yogurt stays stable and does not split — one reason chefs love it. Stabilised product curdles and weeps.
 
-Los estudios confirman lo que estos atletas experimentan: Lactobacillus bulgaricus acelera la absorción de aminoácidos, reduce la inflamación post-ejercicio (marcador CRP) y mejora la síntesis de proteína muscular. Todo natural. Todo real.
-    `,
-    category: 'Deporte',
-    readTime: '7 min',
-    image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=500&fit=crop',
-    keywords: ['yogurt búlgaro deportistas', 'proteina natural deporte', 'recuperacion muscular', 'yogurt para atletas'],
-    datePublished: '2026-05-10',
-    author: 'Equipo Yogurt Búlgaro Tenerife',
+Purity is not something you read on a label. It is something the jar — and the pan — proves.`,
+    },
+    category: { de: 'Handwerk', en: 'Craft' },
+    readTime: '4 min',
+    image: 'https://images.unsplash.com/photo-1571212515416-fef01fc43637?w=800&h=500&fit=crop',
+    keywords: ['greek yogurt', 'strained yogurt', 'kiselo mlyako', 'zero syneresis', 'additive free'],
+    datePublished: '2026-05-25',
+    author: 'Krava',
   },
   {
     id: '3',
-    title: 'Lactobacillus Bulgaricus: La Cepa Probiótica que Cambia Tu Microbioma',
-    slug: 'lactobacillus-bulgaricus-microbioma',
-    excerpt:
-      'Descubierta hace más de un siglo en los montes Ródope de Bulgaria, esta bacteria única es responsable de las propiedades extraordinarias del yogurt búlgaro.',
-    content: `
-En 1905, el médico búlgaro Stamen Grigorov identificó una bacteria desconocida en muestras de yogurt tradicional de los montes Ródope. Esa bacteria —hoy conocida como Lactobacillus delbrueckii subsp. bulgaricus— se convertiría en una de las cepas probióticas más estudiadas de la historia.
+    slug: 'sofia-to-zurich-supply-chain',
+    title: {
+      de: 'Von Sofia nach Zürich: unsere Lieferkette',
+      en: 'From Sofia to Zürich: our supply chain',
+    },
+    excerpt: {
+      de: 'Schweizer Bio-Rohmilch trifft original bulgarische Kulturen. Wie unser hybrider Weg Reinheit und Herkunft verbindet.',
+      en: 'Swiss organic raw milk meets original Bulgarian cultures. How our hybrid path joins purity and provenance.',
+    },
+    content: {
+      de: `Krava steht auf zwei Beinen: Schweizer Milch und bulgarische Seele.
 
-## ¿Qué hace especial a L. bulgaricus?
+### Die Milch bleibt lokal
 
-A diferencia de otras bacterias lácticas, L. bulgaricus tiene una capacidad única de sobrevivir en el tracto gastrointestinal humano y colonizar temporalmente el intestino. Esto no es trivial: la mayoría de probióticos mueren antes de llegar al intestino grueso.
+Rohmilch über die Grenze zu bringen ist in der Schweiz stark reglementiert — und das ist gut so. Wir beziehen zertifizierte **Bio-Rohmilch** direkt von Familienhöfen im Kanton Zürich. Kurze Wege, volle Rückverfolgbarkeit, echtes Terroir.
 
-## Beneficios científicamente probados
+### Die Kultur kommt aus Sofia
 
-**1. Salud digestiva**
-L. bulgaricus produce lactasa, la enzima que digiere la lactosa. Estudios muestran que consumidores de yogurt búlgaro toleran mejor la lactosa que quienes consumen leche normal. Además, la cepa reduce síntomas de SII, estreñimiento y diarrea.
+Was leicht und kostbar ist, reist mit: original gefriergetrocknete **Genesis-Kulturen** aus Sofia. Ein einziges Sachet beimpft mehrere Liter Milch und bewahrt die jahrtausendealte symbiotische Verbindung der Stämme.
 
-**2. Sistema inmune**
-La cepa estimula la producción de inmunoglobulina A (IgA) en las mucosas intestinales, la primera línea de defensa del organismo contra patógenos. Consumo regular = menos infecciones respiratorias.
+### Warum hybrid?
 
-**3. Absorción de nutrientes**
-L. bulgaricus sintetiza vitaminas del grupo B (B2, B12) y mejora la biodisponibilidad del calcio, fósforo y magnesio. Para poblaciones con dietas pobres en estos nutrientes, el impacto es significativo.
+Weil jede Komponente dort herkommt, wo sie am besten ist. Schweizer Milchwirtschaft gehört zu den saubersten der Welt; bulgarische Kulturen sind das authentische Herz von kiselo mlyako. Zusammen ergeben sie etwas, das es in keinem Regal gibt: „Schweizer Reinheit, bulgarische Seele.“`,
+      en: `Krava stands on two legs: Swiss milk and Bulgarian soul.
 
-**4. Reducción de inflamación**
-Marcadores de inflamación sistémica como la proteína C reactiva (PCR) disminuyen con el consumo regular. Esto beneficia no solo a deportistas, sino a cualquier persona con procesos inflamatorios crónicos.
+### The milk stays local
 
-## ¿Por qué "búlgaro"?
+Bringing raw milk across the border is heavily regulated in Switzerland — and rightly so. We source certified **organic raw milk** directly from family farms in Canton Zürich. Short distances, full traceability, real terroir.
 
-La cepa es nativa del territorio búlgaro, específicamente de la región montañosa de Ródope. El clima, la altitud y la flora local crearon condiciones únicas para que esta bacteria evolucionara. Intentar replicarla fuera de su entorno natural resulta en cultivos menos potentes. Por eso el yogurt búlgaro auténtico sigue siendo el gold standard.
+### The culture comes from Sofia
 
-## En Tenerife
+What is light and precious travels with us: original freeze-dried **Genesis cultures** from Sofia. A single sachet inoculates several litres of milk and preserves the millennia-old symbiotic bond between the strains.
 
-Elaboramos nuestro yogurt búlgaro con cultivos auténticos importados de Bulgaria, fermentados lentamente a temperatura controlada con leche local de Tenerife. El resultado: un yogurt con la cepa original y la frescura del Atlántico.
-    `,
-    category: 'Ciencia',
-    readTime: '8 min',
-    image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&h=500&fit=crop',
-    keywords: ['lactobacillus bulgaricus', 'microbioma intestinal', 'probióticos beneficios', 'salud digestiva ciencia'],
-    datePublished: '2026-05-05',
-    author: 'Equipo Yogurt Búlgaro Tenerife',
+### Why hybrid?
+
+Because each component comes from where it is best. Swiss dairy is among the cleanest in the world; Bulgarian cultures are the authentic heart of kiselo mlyako. Together they make something no shelf carries: "Swiss purity, Bulgarian soul."`,
+    },
+    category: { de: 'Herkunft', en: 'Provenance' },
+    readTime: '4 min',
+    image: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=800&h=500&fit=crop',
+    keywords: ['supply chain', 'swiss organic milk', 'genesis cultures', 'sofia', 'zurich dairy'],
+    datePublished: '2026-05-30',
+    author: 'Krava',
   },
-]
+];
