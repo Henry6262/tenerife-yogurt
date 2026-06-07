@@ -250,7 +250,7 @@ function Stage({ progressRef }: { progressRef: ProgRef }) {
   useFrame((_, delta) => {
     if (!ref.current) return;
     const entrance = THREE.MathUtils.clamp(progressRef.current / 0.1, 0, 1);
-    const s = THREE.MathUtils.lerp(0.6, 1.5, easeOutQuad(entrance));
+    const s = THREE.MathUtils.lerp(0.5, 1.25, easeOutQuad(entrance));
     ref.current.scale.setScalar(THREE.MathUtils.lerp(ref.current.scale.x, s, delta * 3));
   });
 
