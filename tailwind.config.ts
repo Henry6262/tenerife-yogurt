@@ -9,12 +9,15 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Warm Cream Premium — terracotta/rose accent, gold + sage secondaries
+        // Krava — Swiss cream + ink, Bulgarian nosiya red accent
         primary: {
-          DEFAULT: '#C36A4C', // terracotta / rose
-          light: '#EDD9CD',
-          dark: '#A8543B',
+          DEFAULT: '#B3242B', // nosiya red
+          light: '#E8B4B0',
+          dark: '#8E1A20',
         },
+        nosiya: { DEFAULT: '#B3242B', cream: '#FAF6EF', ink: '#1C1917' },
+        cream: '#FAF6EF',
+        ink: '#1C1917',
         gold: {
           DEFAULT: '#C9A961',
           light: '#E4D2A6',
