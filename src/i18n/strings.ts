@@ -15,8 +15,12 @@ export const STRINGS = {
     'common.back': 'Zurück',
     'common.from': 'ab',
 
+    'hero.badge': 'Mikro-Molkerei · Zürich',
     'hero.sub':
       'Von Hand gesiebter, additivfreier Mikro-Molkerei-Joghurt aus Zürich — fermentiert mit original Genesis-Kulturen für Darmgesundheit und echte Performance.',
+    'hero.stat.tradition': 'Jahre Tradition',
+    'hero.stat.strained': 'gesiebt',
+    'hero.stat.natural': 'natürlich',
 
     'products.eyebrow': 'Sortiment',
     'products.title': 'Drei Gläser, eine Seele',
@@ -104,8 +108,12 @@ export const STRINGS = {
     'common.back': 'Back',
     'common.from': 'from',
 
+    'hero.badge': 'Micro-dairy · Zürich',
     'hero.sub':
       'Hand-strained, additive-free micro-dairy yogurt crafted in Zürich — fermented with original Genesis cultures for gut health and real performance.',
+    'hero.stat.tradition': 'years of tradition',
+    'hero.stat.strained': 'strained',
+    'hero.stat.natural': 'natural',
 
     'products.eyebrow': 'The Range',
     'products.title': 'Three jars, one soul',
