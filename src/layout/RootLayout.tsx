@@ -7,6 +7,7 @@ import SilkBackground from '@/components/SilkBackground';
 import Navbar from '@/sections/Navbar';
 import Footer from '@/sections/Footer';
 import ScrollToTop from '@/components/ScrollToTop';
+import LoadingScreen from '@/components/LoadingScreen';
 
 export default function RootLayout() {
   const { pathname } = useLocation();
@@ -16,6 +17,7 @@ export default function RootLayout() {
 
   return (
     <ScrollProvider>
+      <LoadingScreen />
       <SmoothScroll />
       <SilkBackground />
       <Grain />
