@@ -1,7 +1,11 @@
 import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLang } from '@/i18n/LangContext';
 import type { StringKey } from '@/i18n/strings';
 import BreakfastBowl from '@/components/BreakfastBowl';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const TOPPINGS: { key: StringKey; color: string }[] = [
   { key: 'breakfast.t1', color: '#D7263D' }, // strawberry
@@ -12,32 +16,33 @@ const TOPPINGS: { key: StringKey; color: string }[] = [
 
 export default function Breakfast() {
   const { t } = useLang();
-  const sectionRef = useRef<HTMLElement>(null);
+  const pinRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef(0);
 
-  // Drive the bowl from this section's own scroll position (rect-based —
-  // no GSAP/context dependency, and the ref crosses the R3F canvas boundary).
+  // Pin the section and scrub the fruit-drop with scroll. Once the animation
+  // finishes the pin releases and the page scrolls on normally.
   useEffect(() => {
-    let raf = 0;
-    const tick = () => {
-      const el = sectionRef.current;
-      if (el) {
-        const r = el.getBoundingClientRect();
-        const vh = window.innerHeight;
-        const range = vh * 0.6 + r.height; // top@80% → bottom@20%
-        const scrolled = vh * 0.8 - r.top;
-        progressRef.current = Math.min(1, Math.max(0, scrolled / range));
-      }
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
+    const el = pinRef.current;
+    if (!el) return;
+    const st = ScrollTrigger.create({
+      trigger: el,
+      start: 'top top',
+      end: () => '+=' + Math.round(window.innerHeight * 1.6),
+      pin: true,
+      pinSpacing: true,
+      scrub: true,
+      anticipatePin: 1,
+      onUpdate: (self) => {
+        progressRef.current = self.progress;
+      },
+    });
+    return () => st.kill();
   }, []);
 
   return (
-    <section ref={sectionRef} id="breakfast" className="relative z-10 min-h-[210vh]">
-      <div className="container-landing">
-        <div className="sticky top-0 flex min-h-screen items-center">
+    <section id="breakfast" className="relative z-10">
+      <div ref={pinRef} className="h-screen overflow-hidden">
+        <div className="container-landing flex h-full items-center">
           <div className="grid w-full items-center gap-8 lg:grid-cols-2">
             {/* text */}
             <div className="order-2 lg:order-1 max-w-md">
@@ -57,8 +62,8 @@ export default function Breakfast() {
               </ul>
             </div>
 
-            {/* 3D bowl filling as you scroll */}
-            <div className="order-1 lg:order-2 relative h-[44vh] sm:h-[52vh] lg:h-[80vh] w-full">
+            {/* 3D bowl filling as you scroll (scrubbed while pinned) */}
+            <div className="order-1 lg:order-2 relative h-[44vh] sm:h-[52vh] lg:h-[78vh] w-full">
               <BreakfastBowl progressRef={progressRef} />
             </div>
           </div>
