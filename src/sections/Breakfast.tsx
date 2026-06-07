@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLang } from '@/i18n/LangContext';
@@ -20,6 +20,25 @@ export default function Breakfast() {
   const { t } = useLang();
   const pinRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef(0);
+  // Only mount the 3D bowl when the section nears the viewport, so the initial
+  // page load (and the splash) only waits on the hero — not the bowl + fruits.
+  const [show3d, setShow3d] = useState(false);
+
+  useEffect(() => {
+    const el = pinRef.current;
+    if (!el || show3d) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setShow3d(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: '1400px 0px' }, // preload ~1.5 screens early
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [show3d]);
 
   // Pin the section and scrub the fruit-drop with scroll. Once the animation
   // finishes the pin releases and the page scrolls on normally.
@@ -46,7 +65,7 @@ export default function Breakfast() {
       <div ref={pinRef} className="relative h-screen overflow-hidden">
         {/* Full-bleed 3D stage so the bowl + falling items never get clipped */}
         <div className="absolute inset-0">
-          <BreakfastBowl progressRef={progressRef} />
+          {show3d && <BreakfastBowl progressRef={progressRef} />}
         </div>
 
         {/* Text overlaid on the left */}
