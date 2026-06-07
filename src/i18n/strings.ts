@@ -1,0 +1,184 @@
+export type Lang = 'de' | 'en';
+
+export const STRINGS = {
+  de: {
+    'nav.products': 'Produkte',
+    'nav.subscribe': 'Abo',
+    'nav.chefs': 'Für Köche',
+    'nav.circle': 'Der Kreis',
+    'nav.articles': 'Journal',
+    'nav.recipes': 'Rezepte',
+
+    'cta.subscribe': 'Abo entdecken',
+    'cta.chefTasting': 'Koch-Tasting anfragen',
+    'cta.order': 'Jetzt bestellen',
+    'common.back': 'Zurück',
+    'common.from': 'ab',
+
+    'hero.sub':
+      'Von Hand gesiebter, additivfreier Mikro-Molkerei-Joghurt aus Zürich — fermentiert mit original Genesis-Kulturen für Darmgesundheit und echte Performance.',
+
+    'products.eyebrow': 'Sortiment',
+    'products.title': 'Drei Gläser, eine Seele',
+    'products.subtitle': 'Vom täglichen Begleiter bis zur limitierten Reserve.',
+
+    'subs.eyebrow': 'Abo',
+    'subs.title': 'Wähle deinen Rhythmus',
+    'subs.subtitle': 'Wöchentliche Lieferung an die Tür. Jederzeit pausieren oder kündigen.',
+
+    'gateway.title': 'Zwei Wege, dieselbe Reinheit',
+    'gateway.d2c.title': 'Für Zürcher Haushalte',
+    'gateway.d2c.body': 'Automatische wöchentliche Lieferung unserer 500-ml- und 1-Liter-Gläser. Perfekt für Frühstück, Fitness und das gute Leben.',
+    'gateway.d2c.cta': 'Abo-Pläne ansehen',
+    'gateway.b2b.title': 'Gastronomie & Köche',
+    'gateway.b2b.body': 'Hochdichte gesiebte Chargen für die Profiküche. Keine Molkentrennung unter Hitze. Kistentausch, null Verpackungsmüll.',
+    'gateway.b2b.cta': 'Koch-Tasting anfragen',
+
+    'circle.eyebrow': 'Nachhaltigkeit',
+    'circle.title': 'Der Kreis',
+    'circle.subtitle': 'Unsere Kühe hassen Verschwendung. Gib das Glas zurück, schliesse den Kreis.',
+    'circle.d2c.title': 'Für Zuhause',
+    'circle.b2b.title': 'Für die Gastronomie',
+
+    'transparency.eyebrow': 'Herkunft',
+    'transparency.title': 'Schweizer Reinheit, bulgarische Seele',
+    'transparency.milk': 'Die Milch',
+    'transparency.culture': 'Die Kultur',
+    'transparency.process': 'Der Prozess',
+    'transparency.heritage': '4.000 Jahre Tradition in jedem Glas.',
+
+    'form.name': 'Name',
+    'form.email': 'E-Mail',
+    'form.address': 'Lieferadresse',
+    'form.phone': 'Telefon',
+    'form.restaurant': 'Restaurant',
+    'form.volume': 'Menge pro Woche (kg)',
+    'form.message': 'Nachricht',
+    'form.plan': 'Produkt / Plan',
+    'form.send': 'Absenden',
+    'form.sending': 'Wird gesendet…',
+    'form.success': 'Danke! Wir melden uns in Kürze.',
+    'form.error': 'Etwas ist schiefgelaufen. Bitte erneut versuchen.',
+    'form.required': 'Bitte alle Pflichtfelder ausfüllen.',
+    'form.optional': 'optional',
+
+    'subscribe.title': 'Werde Teil von Krava',
+    'subscribe.subtitle': 'Sichere dir deine wöchentliche Lieferung. Kein Risiko, jederzeit kündbar.',
+
+    'chefs.headline': 'Krava für die Profiküche',
+    'chefs.sub': 'Hochdichter, gesiebter Joghurt, der unter Hitze stabil bleibt — und eine Herkunftsgeschichte, die deine Gäste lieben werden.',
+    'chefs.crateTitle': 'Der Kisten-Kreislauf',
+    'chefs.crateBody': 'Gebrandete Krava-Kiste, 1:1-Tausch bei jeder Lieferung. Gutschrift pro zurückgegebenem Glas auf der Monatsrechnung. Null Verpackungsmüll für deine Bio-Linie.',
+    'chefs.formTitle': 'Koch-Tasting anfragen',
+    'chefs.volume': 'Empfohlen: 15–30 kg pro Woche',
+
+    'footer.tagline': 'Schweizer Reinheit, bulgarische Seele.',
+    'footer.explore': 'Entdecken',
+    'footer.contact': 'Kontakt',
+    'footer.impressum': 'Impressum',
+    'footer.twint': 'TWINT akzeptiert',
+    'footer.rights': 'Alle Rechte vorbehalten.',
+
+    'articles.title': 'Journal',
+    'articles.subtitle': 'Geschichten über Darmgesundheit, Handwerk und die bulgarische Tradition.',
+    'recipes.title': 'Rezepte',
+    'recipes.subtitle': 'So servierst du Krava — von Frühstück bis Festtafel.',
+    'recipes.ingredients': 'Zutaten',
+    'recipes.method': 'Zubereitung',
+    'recipes.prep': 'Zubereitungszeit',
+    'recipes.difficulty': 'Schwierigkeit',
+
+    'scrolltop': 'Nach oben',
+  },
+  en: {
+    'nav.products': 'Products',
+    'nav.subscribe': 'Subscribe',
+    'nav.chefs': 'For Chefs',
+    'nav.circle': 'The Circle',
+    'nav.articles': 'Journal',
+    'nav.recipes': 'Recipes',
+
+    'cta.subscribe': 'Explore Subscriptions',
+    'cta.chefTasting': "Request Chef's Tasting",
+    'cta.order': 'Order now',
+    'common.back': 'Back',
+    'common.from': 'from',
+
+    'hero.sub':
+      'Hand-strained, additive-free micro-dairy yogurt crafted in Zürich — fermented with original Genesis cultures for gut health and real performance.',
+
+    'products.eyebrow': 'The Range',
+    'products.title': 'Three jars, one soul',
+    'products.subtitle': 'From the daily driver to the limited Reserve.',
+
+    'subs.eyebrow': 'Subscription',
+    'subs.title': 'Choose your rhythm',
+    'subs.subtitle': 'Weekly doorstep delivery. Pause or cancel anytime.',
+
+    'gateway.title': 'Two doors, the same purity',
+    'gateway.d2c.title': 'For Zürich Homes',
+    'gateway.d2c.body': 'Automated weekly delivery of our 500 ml and 1-litre jars. Perfect for breakfast, fitness, and the good life.',
+    'gateway.d2c.cta': 'View subscription plans',
+    'gateway.b2b.title': 'Gastronomy & Chefs',
+    'gateway.b2b.body': 'High-density strained batches built for professional kitchens. Zero syneresis under heat. Crate swap, zero packaging waste.',
+    'gateway.b2b.cta': "Request Chef's Tasting",
+
+    'circle.eyebrow': 'Sustainability',
+    'circle.title': 'The Circle',
+    'circle.subtitle': 'Our cows hate waste. Return the jar, close the loop.',
+    'circle.d2c.title': 'For homes',
+    'circle.b2b.title': 'For gastronomy',
+
+    'transparency.eyebrow': 'Provenance',
+    'transparency.title': 'Swiss purity, Bulgarian soul',
+    'transparency.milk': 'The milk',
+    'transparency.culture': 'The culture',
+    'transparency.process': 'The process',
+    'transparency.heritage': '4,000 years of tradition in every jar.',
+
+    'form.name': 'Name',
+    'form.email': 'Email',
+    'form.address': 'Delivery address',
+    'form.phone': 'Phone',
+    'form.restaurant': 'Restaurant',
+    'form.volume': 'Weekly volume (kg)',
+    'form.message': 'Message',
+    'form.plan': 'Product / plan',
+    'form.send': 'Send',
+    'form.sending': 'Sending…',
+    'form.success': "Thank you! We'll be in touch shortly.",
+    'form.error': 'Something went wrong. Please try again.',
+    'form.required': 'Please fill in all required fields.',
+    'form.optional': 'optional',
+
+    'subscribe.title': 'Join Krava',
+    'subscribe.subtitle': 'Lock in your weekly delivery. No risk, cancel anytime.',
+
+    'chefs.headline': 'Krava for professional kitchens',
+    'chefs.sub': 'High-density strained yogurt that stays stable under heat — and a provenance story your guests will love.',
+    'chefs.crateTitle': 'The crate loop',
+    'chefs.crateBody': 'Branded Krava crate, 1:1 swap on every delivery. Credit per returned jar on your monthly invoice. Zero packaging waste for your organic line.',
+    'chefs.formTitle': "Request a Chef's Tasting",
+    'chefs.volume': 'Recommended: 15–30 kg per week',
+
+    'footer.tagline': 'Swiss purity, Bulgarian soul.',
+    'footer.explore': 'Explore',
+    'footer.contact': 'Contact',
+    'footer.impressum': 'Legal notice',
+    'footer.twint': 'TWINT accepted',
+    'footer.rights': 'All rights reserved.',
+
+    'articles.title': 'Journal',
+    'articles.subtitle': 'Stories on gut health, craft, and the Bulgarian tradition.',
+    'recipes.title': 'Recipes',
+    'recipes.subtitle': 'How to serve Krava — from breakfast to the feast table.',
+    'recipes.ingredients': 'Ingredients',
+    'recipes.method': 'Method',
+    'recipes.prep': 'Prep time',
+    'recipes.difficulty': 'Difficulty',
+
+    'scrolltop': 'Back to top',
+  },
+} as const;
+
+export type StringKey = keyof (typeof STRINGS)['de'];
