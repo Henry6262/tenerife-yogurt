@@ -58,6 +58,8 @@ export const STRINGS = {
     'breakfast.t2': 'Heidelbeeren',
     'breakfast.t3': 'Mandeln',
     'breakfast.t4': 'Haselnüsse',
+    'breakfast.t5': 'Granola',
+    'breakfast.t6': 'Saaten',
 
     'form.name': 'Name',
     'form.email': 'E-Mail',
@@ -159,6 +161,8 @@ export const STRINGS = {
     'breakfast.t2': 'Blueberries',
     'breakfast.t3': 'Almonds',
     'breakfast.t4': 'Hazelnuts',
+    'breakfast.t5': 'Granola',
+    'breakfast.t6': 'Seeds',
 
     'form.name': 'Name',
     'form.email': 'Email',

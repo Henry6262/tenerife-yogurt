@@ -12,6 +12,8 @@ const TOPPINGS: { key: StringKey; color: string }[] = [
   { key: 'breakfast.t2', color: '#3A5BA0' }, // blueberry
   { key: 'breakfast.t3', color: '#D8B384' }, // almond
   { key: 'breakfast.t4', color: '#8A5A2B' }, // hazelnut
+  { key: 'breakfast.t5', color: '#C8893E' }, // granola
+  { key: 'breakfast.t6', color: '#5B5B52' }, // seeds
 ];
 
 export default function Breakfast() {
