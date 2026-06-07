@@ -1,18 +1,24 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
-import { BUSINESS } from '@/data/business';
+import { useLang } from '@/i18n/LangContext';
+import type { StringKey } from '@/i18n/strings';
+import LangToggle from '@/components/LangToggle';
+import { BRAND } from '@/data/brand';
 
-const navLinks = [
-  { label: 'Inicio', href: '#hero' },
-  { label: 'Historia', href: '#story' },
-  { label: 'Beneficios', href: '#benefits' },
-  { label: 'Precios', href: '#pricing' },
-  { label: 'Recetas', href: '#recipes' },
-  { label: 'Atletas', href: '#athletes' },
-  { label: 'Pedir', href: '#order' },
+type NavLink = { key: StringKey; to: string; kind: 'hash' | 'route' };
+
+const navLinks: NavLink[] = [
+  { key: 'nav.products', to: '/#products', kind: 'hash' },
+  { key: 'nav.subscribe', to: '/#subscribe', kind: 'hash' },
+  { key: 'nav.chefs', to: '/chefs', kind: 'route' },
+  { key: 'nav.circle', to: '/#circle', kind: 'hash' },
+  { key: 'nav.articles', to: '/articles', kind: 'route' },
+  { key: 'nav.recipes', to: '/recipes', kind: 'route' },
 ];
 
 export default function Navbar() {
+  const { t } = useLang();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -32,6 +38,19 @@ export default function Navbar() {
     return () => document.removeEventListener('click', handleClick);
   }, [mobileOpen]);
 
+  const renderLink = (link: NavLink, onClick?: () => void, className?: string) =>
+    link.kind === 'route' ? (
+      <Link key={link.key} to={link.to} onClick={onClick} className={className}>
+        {t(link.key)}
+      </Link>
+    ) : (
+      <a key={link.key} href={link.to} onClick={onClick} className={className}>
+        {t(link.key)}
+      </a>
+    );
+
+  const linkClass = 'text-sm font-medium text-muted hover:text-foreground transition-colors';
+
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -41,26 +60,19 @@ export default function Navbar() {
       }`}
     >
       <div className="container-landing flex items-center justify-between h-16">
-        <a href="#hero" className="font-heading font-bold text-lg text-primary flex items-center gap-2">
-          🥛 {BUSINESS.shortName}
-        </a>
+        <Link to="/" className="font-heading font-bold text-xl tracking-tight text-primary">
+          {BRAND.name}
+        </Link>
 
         {/* Desktop */}
         <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-sm font-medium text-muted hover:text-foreground transition-colors"
-            >
-              {link.label}
-            </a>
-          ))}
+          {navLinks.map((link) => renderLink(link, undefined, linkClass))}
+          <LangToggle />
           <a
-            href="#order"
+            href="/#subscribe"
             className="px-4 py-2 rounded-xl bg-primary text-white text-sm font-semibold hover:bg-primary-dark transition-colors"
           >
-            Hacer pedido
+            {t('cta.subscribe')}
           </a>
         </div>
 
@@ -78,22 +90,16 @@ export default function Navbar() {
       {mobileOpen && (
         <div className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border">
           <div className="container-landing py-4 flex flex-col gap-4">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setMobileOpen(false)}
-                className="text-sm font-medium text-muted hover:text-foreground transition-colors py-2"
-              >
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map((link) =>
+              renderLink(link, () => setMobileOpen(false), `${linkClass} py-2`)
+            )}
+            <LangToggle />
             <a
-              href="#order"
+              href="/#subscribe"
               onClick={() => setMobileOpen(false)}
               className="px-4 py-3 rounded-xl bg-primary text-white text-sm font-semibold text-center hover:bg-primary-dark transition-colors"
             >
-              Hacer pedido — {BUSINESS.prices.currency}{BUSINESS.prices.oneTime}
+              {t('cta.subscribe')}
             </a>
           </div>
         </div>
