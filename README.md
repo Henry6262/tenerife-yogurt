@@ -1,6 +1,7 @@
-# yogurt-landing
+# Krava
 
-Landing page for Bulgarian Yogurt Tenerife — artisanal yogurt delivery in Santa Cruz & La Laguna.
+Landing site for **Krava** — premium Bulgarian yogurt in **Zürich** ("Swiss Purity, Bulgarian Soul").
+Bilingual DE/EN, three channels: direct-to-consumer, subscription, and B2B gastronomy.
 
 ## Quick start
 
@@ -19,12 +20,12 @@ Output goes to `dist/`.
 
 ## Tech stack
 
-- React 18 + TypeScript
-- Vite
-- Tailwind CSS
-- GSAP + ScrollTrigger
-- React Three Fiber + OGL (WebGL backgrounds & effects)
-- react-helmet-async
+- React 18 + TypeScript + Vite
+- react-router-dom (routed: `/`, `/chefs`, `/articles[/:slug]`, `/recipes[/:slug]`)
+- Tailwind CSS (nosiya-red / cream / ink)
+- GSAP + ScrollTrigger, React Three Fiber + OGL (3D jar + Silk background)
+- react-helmet-async (per-route SEO + JSON-LD)
+- marked + @tailwindcss/typography
 - lucide-react
 
 ## Project structure
@@ -33,11 +34,15 @@ Output goes to `dist/`.
 yogurt-landing/
   index.html
   src/
-    App.tsx
-    main.tsx
-    index.css
-    sections/      # Page sections (Hero, Story, Benefits, etc.)
-    components/    # Reusable components (FadeContent, modals, WebGL)
-    data/          # Content data (articles, athletes, recipes)
-    lib/           # Utilities
+    main.tsx        # RouterProvider + LangProvider + HelmetProvider
+    router.tsx
+    layout/         # RootLayout (shared chrome)
+    i18n/           # DE/EN dictionary + LangContext
+    data/           # brand.ts, articles.ts, recipes.ts
+    lib/            # leads.ts (single endpoint, channel field)
+    pages/          # Home, Chefs, Articles*, Recipes*
+    sections/       # Hero, DualGateway, ProductLine, Subscriptions, CircleProtocol, …
+    components/     # FadeContent, LangToggle, WebGL, …
 ```
+
+See `CLAUDE.md` for the full architecture, i18n, and lead-flow notes.
