@@ -157,4 +157,108 @@ Because each component comes from where it is best. Swiss dairy is among the cle
     datePublished: '2026-05-30',
     author: 'Krava',
   },
+  {
+    id: '4',
+    slug: 'protein-fruehstueck-joghurt',
+    title: {
+      de: 'Das Protein-Frühstück, das wirklich satt macht',
+      en: 'The protein breakfast that actually keeps you full',
+    },
+    excerpt: {
+      de: 'Gesiebtes kiselo mlyako liefert fast doppelt so viel Protein wie normales Joghurt — und hält den Hunger stundenlang fern. Warum das deinen Morgen verändert.',
+      en: 'Strained kiselo mlyako delivers nearly twice the protein of regular yogurt — and keeps hunger away for hours. Why it changes your morning.',
+    },
+    content: {
+      de: `Die meisten Frühstücke lassen dich um zehn Uhr wieder hungrig zurück. Süsses Joghurt mit Fruchtboden ist im Grunde Dessert: viel Zucker, wenig Protein, schneller Crash.
+
+Gesiebtes kiselo mlyako dreht das um. Durch das Sieben (2:1) verdoppelt sich der Proteingehalt auf natürliche Weise — ohne Pulver, ohne Zusätze. Ein Becher liefert dir den Eiweissschub, der den Blutzucker stabil hält und den Hunger bis zum Mittag zähmt.
+
+### Warum Protein sättigt
+
+Eiweiss verlangsamt die Magenentleerung und dämpft das Hungerhormon Ghrelin. Kombiniert mit den lebendigen Kulturen, die deinen Darm pflegen, bekommst du nicht nur Sättigung, sondern auch Verdauung im Gleichgewicht.
+
+### So baust du dein Frühstück
+
+- **Pur** mit ein paar Walnüssen und einem Löffel Honig.
+- **Herzhaft** mit Olivenöl, Salz und Gurke — die bulgarische Art.
+- **Als Bowl** mit Beeren und Leinsamen statt zuckrigem Müesli.
+
+Wer morgens echtes Protein isst, isst tagsüber weniger. Mit einem Krava-Abo steht dein Frühstück jede Woche frisch vor der Tür — kein Schlepppen, kein Zucker, kein Crash.`,
+      en: `Most breakfasts leave you hungry again by ten. Sweet fruit-bottom yogurt is essentially dessert: lots of sugar, little protein, a fast crash.
+
+Strained kiselo mlyako flips that. Straining (2:1) naturally doubles the protein content — no powder, no additives. One pot gives you the protein hit that keeps blood sugar steady and tames hunger until noon.
+
+### Why protein keeps you full
+
+Protein slows gastric emptying and dampens the hunger hormone ghrelin. Combined with the live cultures that nurture your gut, you get not just satiety but balanced digestion.
+
+### How to build your breakfast
+
+- **Plain** with a few walnuts and a spoon of honey.
+- **Savoury** with olive oil, salt and cucumber — the Bulgarian way.
+- **As a bowl** with berries and flaxseed instead of sugary granola.
+
+Eat real protein in the morning and you eat less all day. With a Krava subscription your breakfast arrives fresh each week — no carrying, no sugar, no crash.`,
+    },
+    category: { de: 'Ernährung', en: 'Nutrition' },
+    readTime: '4 min',
+    image: 'https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?w=800&h=500&fit=crop',
+    keywords: ['protein breakfast', 'strained yogurt', 'satiety', 'low sugar', 'kiselo mlyako'],
+    datePublished: '2026-06-04',
+    author: 'Krava',
+  },
+  {
+    id: '5',
+    slug: 'kiselo-mlyako-fuer-restaurants',
+    title: {
+      de: 'Warum Zürcher Küchenchefs auf echtes kiselo mlyako setzen',
+      en: 'Why Zürich chefs choose real kiselo mlyako',
+    },
+    excerpt: {
+      de: 'Stabil in der Pfanne, dicht am Teller, sauber im Geschmack — warum gesiebtes Joghurt in professionellen Küchen besser funktioniert als jede stabilisierte Ware.',
+      en: 'Stable in the pan, dense on the plate, clean on the palate — why strained yogurt outperforms any stabilised product in professional kitchens.',
+    },
+    content: {
+      de: `In einer professionellen Küche zählt jedes Detail — auch das Joghurt. Stabilisierte Industrieware gerinnt unter Hitze, wässert auf dem Teller und schmeckt flach. Für anspruchsvolle Köche ist das ein Problem.
+
+### Stabil unter Hitze
+
+Echtes gesiebtes kiselo mlyako enthält kein Pektin und keine Stärke — und trotzdem trennt es sich nicht. Sein konzentriertes Protein bleibt in warmen Saucen, Dips und Aufläufen stabil. Kein Gerinnen, kein Wässern.
+
+### Dichte ohne Tricks
+
+Die samtige Textur kommt allein aus dem Sieben (2:1). Das bedeutet eine verlässliche Konsistenz von Charge zu Charge — entscheidend, wenn ein Gericht jeden Abend gleich aussehen und schmecken muss.
+
+### Sauberer Geschmack als Bühne
+
+Die klare, frische Säure von Lactobacillus bulgaricus trägt Kräuter, Knoblauch und Olivenöl, ohne sie zu überdecken. Vom Tzatziki bis zum Dessert bleibt der Eigengeschmack rein.
+
+### So arbeiten wir mit Restaurants
+
+Wir liefern in der Region Zürich in Gastronomie-Gebinden, mit verlässlichem Rhythmus und voller Rückverfolgbarkeit. Schreib uns über unser Chef-Portal — wir bringen ein Muster vorbei und du entscheidest am Teller.`,
+      en: `In a professional kitchen every detail counts — including the yogurt. Stabilised industrial product curdles under heat, weeps on the plate and tastes flat. For serious chefs that is a problem.
+
+### Stable under heat
+
+Real strained kiselo mlyako contains no pectin and no starch — and still it does not split. Its concentrated protein stays stable in warm sauces, dips and bakes. No curdling, no weeping.
+
+### Density without tricks
+
+The velvet texture comes from straining alone (2:1). That means reliable consistency batch to batch — crucial when a dish must look and taste the same every night.
+
+### Clean flavour as a stage
+
+The clear, fresh acidity of Lactobacillus bulgaricus carries herbs, garlic and olive oil without masking them. From tzatziki to dessert, the character stays pure.
+
+### How we work with restaurants
+
+We deliver across the Zürich area in hospitality formats, on a reliable rhythm and with full traceability. Reach us through our chef portal — we will bring a sample and you decide on the plate.`,
+    },
+    category: { de: 'Gastronomie', en: 'Hospitality' },
+    readTime: '4 min',
+    image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&h=500&fit=crop',
+    keywords: ['restaurant yogurt', 'foodservice', 'heat stable', 'b2b', 'zurich gastronomy'],
+    datePublished: '2026-06-06',
+    author: 'Krava',
+  },
 ];
