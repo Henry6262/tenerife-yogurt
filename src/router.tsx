@@ -6,6 +6,8 @@ import ArticlesIndex from '@/pages/ArticlesIndex';
 import ArticleDetail from '@/pages/ArticleDetail';
 import RecipesIndex from '@/pages/RecipesIndex';
 import RecipeDetail from '@/pages/RecipeDetail';
+import PreorderSuccess from '@/pages/PreorderSuccess';
+import PreorderCancel from '@/pages/PreorderCancel';
 
 export const router = createBrowserRouter([
   {
@@ -18,6 +20,8 @@ export const router = createBrowserRouter([
       { path: 'articles/:slug', element: <ArticleDetail /> },
       { path: 'recipes', element: <RecipesIndex /> },
       { path: 'recipes/:slug', element: <RecipeDetail /> },
+      { path: 'preorder/success', element: <PreorderSuccess /> },
+      { path: 'preorder/cancel', element: <PreorderCancel /> },
       { path: '*', element: <Navigate to="/" replace /> },
     ],
   },

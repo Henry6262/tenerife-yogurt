@@ -11,9 +11,7 @@ export const STRINGS = {
 
     'cta.subscribe': 'Abo entdecken',
     'cta.chefTasting': 'Koch-Tasting anfragen',
-    'cta.order': 'Jetzt bestellen',
     'common.back': 'Zurück',
-    'common.from': 'ab',
 
     'hero.badge': 'Mikro-Molkerei · Zürich',
     'hero.sub':
@@ -73,7 +71,6 @@ export const STRINGS = {
     'form.sending': 'Wird gesendet…',
     'form.success': 'Danke! Wir melden uns in Kürze.',
     'form.error': 'Etwas ist schiefgelaufen. Bitte erneut versuchen.',
-    'form.required': 'Bitte alle Pflichtfelder ausfüllen.',
     'form.optional': 'optional',
 
     'subscribe.title': 'Werde Teil von Krava',
@@ -87,8 +84,6 @@ export const STRINGS = {
     'chefs.volume': 'Empfohlen: 15–30 kg pro Woche',
 
     'footer.tagline': 'Schweizer Reinheit, bulgarische Seele.',
-    'footer.explore': 'Entdecken',
-    'footer.contact': 'Kontakt',
     'footer.impressum': 'Impressum',
     'footer.twint': 'TWINT akzeptiert',
     'footer.rights': 'Alle Rechte vorbehalten.',
@@ -102,6 +97,28 @@ export const STRINGS = {
     'recipes.prep': 'Zubereitungszeit',
     'recipes.difficulty': 'Schwierigkeit',
 
+    'cta.preorder': 'Jetzt vorbestellen',
+    'cta.processing': 'Wird verarbeitet…',
+    'cta.payOnDelivery': 'reservieren & bei Lieferung zahlen',
+    'products.preorderBadge': '2 Wochen Vorbestellung · Lieferung danach',
+    'products.payOnDeliveryPrompt': 'Lieber bei Lieferung zahlen?',
+    'form.product': 'Produkt',
+    'form.quantity': 'Menge',
+    'reserve.eyebrow': 'Vorbestellung',
+    'reserve.title': 'Reservieren, bei Lieferung zahlen',
+    'reserve.subtitle': 'Sichere dir deine Gläser jetzt — bezahlt wird bequem bei der Lieferung (TWINT oder bar).',
+    'reserve.submit': 'Vorbestellung absenden',
+    'reserve.trust': 'Keine Vorauszahlung · Zahlung bei Lieferung',
+    'reserve.success': 'Vorbestellung erhalten!',
+    'reserve.successBody': 'Wir bestätigen deine Lieferung per E-Mail. Bezahlung bequem bei Erhalt.',
+    'reserve.again': 'Weitere Vorbestellung',
+    'success.title': 'Danke für deine Vorbestellung!',
+    'success.body': 'Deine Zahlung ist eingegangen. Wir liefern, sobald die erste Charge fertig ist, und melden uns per E-Mail.',
+    'success.home': 'Zurück zur Startseite',
+    'cancel.title': 'Bezahlung abgebrochen',
+    'cancel.body': 'Kein Problem — es wurde nichts belastet. Du kannst es jederzeit erneut versuchen.',
+    'cancel.retry': 'Zurück zu den Produkten',
+
     'scrolltop': 'Nach oben',
   },
   en: {
@@ -114,9 +131,7 @@ export const STRINGS = {
 
     'cta.subscribe': 'Explore Subscriptions',
     'cta.chefTasting': "Request Chef's Tasting",
-    'cta.order': 'Order now',
     'common.back': 'Back',
-    'common.from': 'from',
 
     'hero.badge': 'Micro-dairy · Zürich',
     'hero.sub':
@@ -176,7 +191,6 @@ export const STRINGS = {
     'form.sending': 'Sending…',
     'form.success': "Thank you! We'll be in touch shortly.",
     'form.error': 'Something went wrong. Please try again.',
-    'form.required': 'Please fill in all required fields.',
     'form.optional': 'optional',
 
     'subscribe.title': 'Join Krava',
@@ -190,8 +204,6 @@ export const STRINGS = {
     'chefs.volume': 'Recommended: 15–30 kg per week',
 
     'footer.tagline': 'Swiss purity, Bulgarian soul.',
-    'footer.explore': 'Explore',
-    'footer.contact': 'Contact',
     'footer.impressum': 'Legal notice',
     'footer.twint': 'TWINT accepted',
     'footer.rights': 'All rights reserved.',
@@ -204,6 +216,28 @@ export const STRINGS = {
     'recipes.method': 'Method',
     'recipes.prep': 'Prep time',
     'recipes.difficulty': 'Difficulty',
+
+    'cta.preorder': 'Pre-order now',
+    'cta.processing': 'Processing…',
+    'cta.payOnDelivery': 'reserve & pay on delivery',
+    'products.preorderBadge': '2-week pre-order · ships after',
+    'products.payOnDeliveryPrompt': 'Prefer to pay on delivery?',
+    'form.product': 'Product',
+    'form.quantity': 'Qty',
+    'reserve.eyebrow': 'Pre-order',
+    'reserve.title': 'Reserve now, pay on delivery',
+    'reserve.subtitle': 'Lock in your jars now — pay conveniently on delivery (TWINT or cash).',
+    'reserve.submit': 'Submit pre-order',
+    'reserve.trust': 'No prepayment · Pay on delivery',
+    'reserve.success': 'Pre-order received!',
+    'reserve.successBody': "We'll confirm your delivery by email. Pay easily on arrival.",
+    'reserve.again': 'Place another pre-order',
+    'success.title': 'Thank you for your pre-order!',
+    'success.body': "Your payment went through. We'll deliver as soon as the first batch is ready and email you the details.",
+    'success.home': 'Back to home',
+    'cancel.title': 'Payment cancelled',
+    'cancel.body': 'No worries — nothing was charged. You can try again anytime.',
+    'cancel.retry': 'Back to products',
 
     'scrolltop': 'Back to top',
   },

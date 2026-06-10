@@ -34,9 +34,10 @@ export default function Hero() {
             {t('hero.badge')}
           </div>
 
-          <h1 className="font-heading text-5xl sm:text-6xl xl:text-7xl font-semibold text-foreground leading-[0.98] tracking-tight mb-6">
-            {line1.trim()},
-            <span className="block mt-1">
+          <h1 className="font-heading text-5xl sm:text-6xl lg:text-5xl xl:text-6xl font-semibold text-foreground leading-[1.02] tracking-tight mb-6">
+            {/* Two balanced rows, two words each — keep each phrase whole on desktop */}
+            <span className="block lg:whitespace-nowrap">{line1.trim()},</span>
+            <span className="block mt-1 lg:whitespace-nowrap">
               <ShinyText text={line2.trim()} speed={4} color="#B3242B" shineColor="#E8B4B0" className="font-semibold" />
             </span>
           </h1>

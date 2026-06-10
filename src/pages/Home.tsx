@@ -8,6 +8,7 @@ import Subscriptions from '@/sections/Subscriptions';
 import CircleProtocol from '@/sections/CircleProtocol';
 import Transparency from '@/sections/Transparency';
 import SubscribeForm from '@/sections/SubscribeForm';
+import PreorderReserve from '@/sections/PreorderReserve';
 
 export default function Home() {
   const { lang } = useLang();
@@ -37,6 +38,7 @@ export default function Home() {
       <CircleProtocol />
       <Transparency />
       <SubscribeForm />
+      <PreorderReserve />
     </>
   );
 }
