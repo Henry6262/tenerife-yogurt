@@ -16,6 +16,30 @@ declare global {
 const META_ID = import.meta.env.VITE_META_PIXEL_ID as string | undefined;
 const TIKTOK_ID = import.meta.env.VITE_TIKTOK_PIXEL_ID as string | undefined;
 
+/** localStorage key for the marketing-pixel consent choice (Swiss revFADP / GDPR). */
+export const CONSENT_KEY = 'krava.consent';
+
+/** True when at least one pixel id is configured — the consent banner only shows then. */
+export const hasMarketingPixels = Boolean(META_ID || TIKTOK_ID);
+
+export type ConsentStatus = 'granted' | 'denied' | null;
+
+export function consentStatus(): ConsentStatus {
+  const v = localStorage.getItem(CONSENT_KEY);
+  return v === 'granted' || v === 'denied' ? v : null;
+}
+
+/** Persist acceptance and load the pixels immediately. */
+export function grantConsent() {
+  localStorage.setItem(CONSENT_KEY, 'granted');
+  initAnalytics();
+}
+
+/** Persist refusal — pixels are never loaded this session or future ones. */
+export function denyConsent() {
+  localStorage.setItem(CONSENT_KEY, 'denied');
+}
+
 let initialized = false;
 
 function loadMeta(id: string) {

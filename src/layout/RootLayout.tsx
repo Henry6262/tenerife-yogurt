@@ -9,6 +9,7 @@ import Navbar from '@/sections/Navbar';
 import Footer from '@/sections/Footer';
 import ScrollToTop from '@/components/ScrollToTop';
 import LoadingScreen from '@/components/LoadingScreen';
+import ConsentBanner from '@/components/ConsentBanner';
 
 export default function RootLayout() {
   const { pathname } = useLocation();
@@ -35,6 +36,7 @@ export default function RootLayout() {
       </main>
       <Footer />
       <ScrollToTop />
+      <ConsentBanner />
     </ScrollProvider>
   );
 }
