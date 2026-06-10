@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { CATALOG, isSku, clampQty } from './_catalog';
+import { CATALOG, isSku, clampQty } from './_catalog.js';
 
 // "Pay on delivery" path — captures a pre-order without charging a card.
 // Best-effort notification to the shop via Resend if configured; always logged.

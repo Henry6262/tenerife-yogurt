@@ -1,6 +1,6 @@
 import Stripe from 'stripe';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { CATALOG, isSku, clampQty } from './_catalog';
+import { CATALOG, isSku, clampQty } from './_catalog.js';
 
 // Stripe-hosted Checkout for the 2-week pre-order ("pay now" path).
 // Payment methods (TWINT, cards, Apple/Google Pay) are controlled via dynamic
