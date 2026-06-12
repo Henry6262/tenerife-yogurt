@@ -1,4 +1,4 @@
-import { track } from '@/lib/analytics';
+import { consentStatus, track } from '@/lib/analytics';
 
 export type Channel = 'subscription' | 'one-time' | 'b2b';
 
@@ -22,16 +22,23 @@ const API_URL = import.meta.env.VITE_API_URL || '/api/lead';
 
 /** POST a lead to the shared endpoint. Throws on non-2xx so the form can show an error. */
 export async function submitLead(payload: LeadPayload): Promise<void> {
+  // Shared id so the browser pixel event and the server CAPI event deduplicate.
+  const eventId = crypto.randomUUID();
   const res = await fetch(API_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
+    body: JSON.stringify({
+      ...payload,
+      eventId,
+      eventSourceUrl: location.href,
+      marketingConsent: consentStatus() === 'granted',
+    }),
   });
   if (!res.ok) {
     const data = await res.json().catch(() => ({}));
     throw new Error(data.error || `Request failed (${res.status})`);
   }
-  track('lead', { content_category: payload.channel });
+  track('lead', { content_category: payload.channel }, eventId);
 }
 
 export const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());

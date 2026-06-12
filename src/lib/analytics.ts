@@ -115,9 +115,11 @@ const TIKTOK_MAP: Record<CanonicalEvent, string> = {
   viewcontent: 'ViewContent',
 };
 
-export function track(event: CanonicalEvent, params: Record<string, unknown> = {}) {
+export function track(event: CanonicalEvent, params: Record<string, unknown> = {}, eventId?: string) {
   try {
-    if (window.fbq) window.fbq('track', META_MAP[event], params);
+    // eventID lets Meta deduplicate this browser event against the same event
+    // sent server-side via the Conversions API (api/lead.ts).
+    if (window.fbq) window.fbq('track', META_MAP[event], params, eventId ? { eventID: eventId } : undefined);
     if (window.ttq) window.ttq.track(TIKTOK_MAP[event], params);
   } catch {
     /* never let analytics break the app */
