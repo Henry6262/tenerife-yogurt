@@ -1,4 +1,4 @@
-import { Milk, FlaskConical, Snowflake } from 'lucide-react';
+import { Milk, ShieldCheck, Snowflake } from 'lucide-react';
 import { useLang } from '@/i18n/LangContext';
 import { BRAND, p } from '@/data/brand';
 import FadeContent from '@/components/FadeContent';
@@ -8,8 +8,8 @@ export default function Transparency() {
 
   const points = [
     { icon: Milk, title: t('transparency.milk'), body: p(lang, BRAND.sourcing.milk) },
-    { icon: FlaskConical, title: t('transparency.culture'), body: p(lang, BRAND.sourcing.culture) },
-    { icon: Snowflake, title: t('transparency.process'), body: p(lang, BRAND.sourcing.process) },
+    { icon: ShieldCheck, title: t('transparency.noheat'), body: p(lang, BRAND.sourcing.process) },
+    { icon: Snowflake, title: t('transparency.process'), body: p(lang, BRAND.sourcing.coldchain) },
   ];
 
   return (

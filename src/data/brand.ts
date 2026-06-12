@@ -134,6 +134,10 @@ export const BRAND = {
       de: 'Von Hand 2:1 gesiebt, durchgehend gekühlt. Kein Pektin, kein Zucker, keine Verdickungsmittel.',
       en: 'Hand-strained 2:1, continuously refrigerated. No pectin, no sugar, no thickeners.',
     } as L,
+    coldchain: {
+      de: 'Durchgehende Kühlkette vom Hof bis zur Tür. Keine Konservierungsstoffe, keine Verdickungsmittel.',
+      en: 'Unbroken cold chain from farm to door. No preservatives, no thickeners.',
+    } as L,
   },
 } as const;
 

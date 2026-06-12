@@ -1,25 +1,13 @@
 import { useState } from 'react';
-import { Check, Sparkles, CreditCard, Loader2 } from 'lucide-react';
+import { Check, Sparkles, Mail, Recycle, Home, ChefHat } from 'lucide-react';
 import { useLang } from '@/i18n/LangContext';
 import { BRAND, fmtCHF, p } from '@/data/brand';
-import { startSubscriptionCheckout, type SubscriptionPlan } from '@/lib/checkout';
 import FadeContent from '@/components/FadeContent';
+import SubscribeModal from '@/components/SubscribeModal';
 
 export default function Subscriptions() {
   const { lang, t } = useLang();
-  const [loadingId, setLoadingId] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  const subscribe = async (planId: SubscriptionPlan) => {
-    setError(null);
-    setLoadingId(planId);
-    try {
-      await startSubscriptionCheckout(planId, lang);
-    } catch (e) {
-      setError(e instanceof Error ? e.message : 'Checkout failed');
-      setLoadingId(null);
-    }
-  };
+  const [modalPlanId, setModalPlanId] = useState<string | null>(null);
 
   return (
     <section id="subscribe" className="relative z-10 py-24 lg:py-32 scroll-mt-20">
@@ -73,35 +61,51 @@ export default function Subscriptions() {
 
                 <button
                   type="button"
-                  onClick={() => subscribe(plan.id as SubscriptionPlan)}
-                  disabled={loadingId === plan.id}
-                  className={`block w-full text-center py-3.5 rounded-xl font-semibold transition-all disabled:opacity-60 disabled:cursor-wait ${
+                  onClick={() => setModalPlanId(plan.id)}
+                  className={`block w-full text-center py-3.5 rounded-xl font-semibold transition-all ${
                     plan.popular
                       ? 'bg-primary text-white hover:bg-primary-dark'
                       : 'bg-foreground text-white hover:bg-foreground/90'
                   }`}
                 >
-                  {loadingId === plan.id ? (
-                    <span className="inline-flex items-center gap-2">
-                      <Loader2 size={16} className="animate-spin" />
-                      {lang === 'de' ? 'Weiter…' : 'Proceed…'}
-                    </span>
-                  ) : (
-                    <span className="inline-flex items-center gap-2">
-                      <CreditCard size={16} />
-                      {lang === 'de' ? 'Jetzt abonnieren' : 'Subscribe now'}
-                    </span>
-                  )}
+                  <span className="inline-flex items-center gap-2">
+                    <Mail size={16} />
+                    {lang === 'de' ? 'Jetzt abonnieren' : 'Subscribe now'}
+                  </span>
                 </button>
               </div>
             </FadeContent>
           ))}
         </div>
 
-        {error && (
-          <p className="text-center text-sm text-primary mt-6">{error}</p>
-        )}
+        {/* Jar-return loop (folded in from the old CircleProtocol section) */}
+        <FadeContent blur duration={1000} delay={200}>
+          <div className="mt-14 max-w-3xl mx-auto rounded-3xl bg-card border border-border p-6 lg:p-8">
+            <div className="flex items-center gap-2 justify-center mb-6">
+              <Recycle size={22} className="text-primary" />
+              <h3 className="font-heading text-lg font-semibold text-foreground">{t('circle.title')}</h3>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-5">
+              <div className="flex items-start gap-3">
+                <Home size={20} className="text-primary mt-0.5 shrink-0" />
+                <div>
+                  <p className="font-semibold text-foreground text-sm mb-1">{t('circle.d2c.title')}</p>
+                  <p className="text-muted text-sm leading-relaxed">{p(lang, BRAND.circle.d2c)}</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <ChefHat size={20} className="text-primary mt-0.5 shrink-0" />
+                <div>
+                  <p className="font-semibold text-foreground text-sm mb-1">{t('circle.b2b.title')}</p>
+                  <p className="text-muted text-sm leading-relaxed">{p(lang, BRAND.circle.b2b)}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </FadeContent>
       </div>
+
+      <SubscribeModal planId={modalPlanId} onClose={() => setModalPlanId(null)} />
     </section>
   );
 }

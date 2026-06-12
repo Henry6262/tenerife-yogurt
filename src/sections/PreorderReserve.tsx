@@ -10,7 +10,7 @@ type FormStatus = 'idle' | 'loading' | 'success' | 'error';
 const inputClass =
   'w-full px-4 py-3.5 rounded-xl border border-border bg-white text-foreground placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all';
 
-export default function PreorderReserve() {
+export default function PreorderReserve({ embedded = false }: { embedded?: boolean } = {}) {
   const { t } = useLang();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -46,19 +46,7 @@ export default function PreorderReserve() {
     setQuantity(1);
   };
 
-  return (
-    <section id="reserve" className="relative z-10 py-24 lg:py-32 scroll-mt-20">
-      <div className="container-landing">
-        <FadeContent blur duration={1000}>
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="label text-primary">{t('reserve.eyebrow')}</span>
-            <h2 className="font-heading text-4xl lg:text-5xl font-semibold text-foreground mt-4 mb-4">
-              {t('reserve.title')}
-            </h2>
-            <p className="text-lg text-muted">{t('reserve.subtitle')}</p>
-          </div>
-        </FadeContent>
-
+  const body = (
         <FadeContent blur duration={1000} delay={150}>
           <div className="max-w-lg mx-auto rounded-3xl border border-border bg-background p-8 lg:p-10 shadow-xl shadow-primary/5">
             {status === 'success' ? (
@@ -148,6 +136,23 @@ export default function PreorderReserve() {
             )}
           </div>
         </FadeContent>
+  );
+
+  if (embedded) return body;
+
+  return (
+    <section id="reserve" className="relative z-10 py-24 lg:py-32 scroll-mt-20">
+      <div className="container-landing">
+        <FadeContent blur duration={1000}>
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <span className="label text-primary">{t('reserve.eyebrow')}</span>
+            <h2 className="font-heading text-4xl lg:text-5xl font-semibold text-foreground mt-4 mb-4">
+              {t('reserve.title')}
+            </h2>
+            <p className="text-lg text-muted">{t('reserve.subtitle')}</p>
+          </div>
+        </FadeContent>
+        {body}
       </div>
     </section>
   );

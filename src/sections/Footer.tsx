@@ -8,6 +8,7 @@ type FLink = { key: StringKey; to: string; kind: 'hash' | 'route' };
 
 const footerLinks: FLink[] = [
   { key: 'nav.products', to: '/#products', kind: 'hash' },
+  { key: 'nav.culture', to: '/#culture', kind: 'hash' },
   { key: 'nav.subscribe', to: '/#subscribe', kind: 'hash' },
   { key: 'nav.chefs', to: '/chefs', kind: 'route' },
   { key: 'nav.articles', to: '/articles', kind: 'route' },
