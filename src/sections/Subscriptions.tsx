@@ -1,10 +1,25 @@
-import { Check, Sparkles } from 'lucide-react';
+import { useState } from 'react';
+import { Check, Sparkles, CreditCard, Loader2 } from 'lucide-react';
 import { useLang } from '@/i18n/LangContext';
 import { BRAND, fmtCHF, p } from '@/data/brand';
+import { startSubscriptionCheckout, type SubscriptionPlan } from '@/lib/checkout';
 import FadeContent from '@/components/FadeContent';
 
 export default function Subscriptions() {
   const { lang, t } = useLang();
+  const [loadingId, setLoadingId] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const subscribe = async (planId: SubscriptionPlan) => {
+    setError(null);
+    setLoadingId(planId);
+    try {
+      await startSubscriptionCheckout(planId, lang);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Checkout failed');
+      setLoadingId(null);
+    }
+  };
 
   return (
     <section id="subscribe" className="relative z-10 py-24 lg:py-32 scroll-mt-20">
@@ -56,20 +71,36 @@ export default function Subscriptions() {
                   ))}
                 </ul>
 
-                <a
-                  href="#subscribe-form"
-                  className={`block w-full text-center py-3.5 rounded-xl font-semibold transition-all ${
+                <button
+                  type="button"
+                  onClick={() => subscribe(plan.id as SubscriptionPlan)}
+                  disabled={loadingId === plan.id}
+                  className={`block w-full text-center py-3.5 rounded-xl font-semibold transition-all disabled:opacity-60 disabled:cursor-wait ${
                     plan.popular
                       ? 'bg-primary text-white hover:bg-primary-dark'
                       : 'bg-foreground text-white hover:bg-foreground/90'
                   }`}
                 >
-                  {t('cta.subscribe')}
-                </a>
+                  {loadingId === plan.id ? (
+                    <span className="inline-flex items-center gap-2">
+                      <Loader2 size={16} className="animate-spin" />
+                      {lang === 'de' ? 'Weiter…' : 'Proceed…'}
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center gap-2">
+                      <CreditCard size={16} />
+                      {lang === 'de' ? 'Jetzt abonnieren' : 'Subscribe now'}
+                    </span>
+                  )}
+                </button>
               </div>
             </FadeContent>
           ))}
         </div>
+
+        {error && (
+          <p className="text-center text-sm text-primary mt-6">{error}</p>
+        )}
       </div>
     </section>
   );

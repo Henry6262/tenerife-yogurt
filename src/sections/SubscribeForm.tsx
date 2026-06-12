@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import { Send, ShieldCheck, CheckCircle, Loader2 } from 'lucide-react';
+import { CreditCard, ShieldCheck, CheckCircle, Loader2, Mail } from 'lucide-react';
 import { useLang } from '@/i18n/LangContext';
 import { BRAND, fmtCHF, p } from '@/data/brand';
 import { submitLead, isEmail, type Channel } from '@/lib/leads';
+import { startSubscriptionCheckout, type SubscriptionPlan } from '@/lib/checkout';
 import FadeContent from '@/components/FadeContent';
 
 type FormStatus = 'idle' | 'loading' | 'success' | 'error';
+type Mode = 'card' | 'lead';
 
 const inputClass =
   'w-full px-4 py-3.5 rounded-xl border border-border bg-white text-foreground placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all';
@@ -16,23 +18,27 @@ export default function SubscribeForm() {
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
   const [phone, setPhone] = useState('');
-  // value form: "sub:performance" | "onetime:daily"
-  const [selection, setSelection] = useState('sub:performance');
+  const [planId, setPlanId] = useState<SubscriptionPlan>('performance');
   const [status, setStatus] = useState<FormStatus>('idle');
   const [errorMsg, setErrorMsg] = useState('');
+  const [mode, setMode] = useState<Mode>('card');
 
-  const isValid = name.trim().length >= 2 && isEmail(email) && address.trim().length >= 5;
+  const isValid = name.trim().length >= 2 && isEmail(email);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!isValid) return;
     setStatus('loading');
     setErrorMsg('');
-    const [kind, id] = selection.split(':');
-    const channel: Channel = kind === 'sub' ? 'subscription' : 'one-time';
+
     try {
-      await submitLead({ channel, plan: id, name, email, phone, address });
-      setStatus('success');
+      if (mode === 'card') {
+        await startSubscriptionCheckout(planId, lang, email);
+        // Redirect happens inside startSubscriptionCheckout; no state update needed.
+      } else {
+        await submitLead({ channel: 'subscription' as Channel, plan: planId, name, email, phone, address });
+        setStatus('success');
+      }
     } catch (err) {
       setStatus('error');
       setErrorMsg(err instanceof Error ? err.message : t('form.error'));
@@ -81,25 +87,16 @@ export default function SubscribeForm() {
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-1.5">{t('form.plan')}</label>
                   <select
-                    value={selection}
-                    onChange={(e) => setSelection(e.target.value)}
+                    value={planId}
+                    onChange={(e) => setPlanId(e.target.value as SubscriptionPlan)}
                     className={inputClass}
                   >
-                    <optgroup label={t('subs.eyebrow')}>
-                      {BRAND.plans.map((pl) => (
-                        <option key={pl.id} value={`sub:${pl.id}`}>
-                          {p(lang, pl.name)} — {fmtCHF(pl.price)}
-                          {p(lang, pl.cadence)}
-                        </option>
-                      ))}
-                    </optgroup>
-                    <optgroup label={t('products.eyebrow')}>
-                      {BRAND.products.map((pr) => (
-                        <option key={pr.id} value={`onetime:${pr.id}`}>
-                          {pr.name} — {fmtCHF(pr.price)}
-                        </option>
-                      ))}
-                    </optgroup>
+                    {BRAND.plans.map((pl) => (
+                      <option key={pl.id} value={pl.id}>
+                        {p(lang, pl.name)} — {fmtCHF(pl.price)}
+                        {p(lang, pl.cadence)}
+                      </option>
+                    ))}
                   </select>
                 </div>
 
@@ -111,16 +108,21 @@ export default function SubscribeForm() {
                   <label className="block text-sm font-medium text-foreground mb-1.5">{t('form.email')}</label>
                   <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required className={inputClass} />
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-1.5">{t('form.address')}</label>
-                  <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} required className={inputClass} />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-1.5">
-                    {t('form.phone')} <span className="text-muted font-normal">({t('form.optional')})</span>
-                  </label>
-                  <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} className={inputClass} />
-                </div>
+
+                {mode === 'lead' && (
+                  <>
+                    <div>
+                      <label className="block text-sm font-medium text-foreground mb-1.5">{t('form.address')}</label>
+                      <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} required className={inputClass} />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-foreground mb-1.5">
+                        {t('form.phone')} <span className="text-muted font-normal">({t('form.optional')})</span>
+                      </label>
+                      <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} className={inputClass} />
+                    </div>
+                  </>
+                )}
 
                 {status === 'error' && (
                   <div className="rounded-xl bg-red-50 border border-red-100 p-4 text-sm text-red-700">
@@ -134,15 +136,29 @@ export default function SubscribeForm() {
                   className="w-full inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-primary text-white font-semibold text-lg shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-0.5 transition-all disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
                 >
                   {status === 'loading' ? (
-                    <><Loader2 size={20} className="animate-spin" />{t('form.sending')}</>
+                    <><Loader2 size={20} className="animate-spin" />{mode === 'card' ? (lang === 'de' ? 'Weiter…' : 'Proceed…') : t('form.sending')}</>
+                  ) : mode === 'card' ? (
+                    <><CreditCard size={20} />{lang === 'de' ? 'Weiter zur Zahlung' : 'Proceed to payment'}</>
                   ) : (
-                    <><Send size={20} />{t('form.send')}</>
+                    <><Mail size={20} />{t('form.send')}</>
                   )}
                 </button>
 
                 <div className="flex items-center justify-center gap-2 text-xs text-muted">
                   <ShieldCheck size={14} />
-                  {t('footer.twint')}
+                  {mode === 'card' ? 'TWINT · Karte · Apple Pay · Google Pay' : t('footer.twint')}
+                </div>
+
+                <div className="text-center">
+                  <button
+                    type="button"
+                    onClick={() => setMode(mode === 'card' ? 'lead' : 'card')}
+                    className="text-xs text-muted hover:text-primary underline underline-offset-4 transition-colors"
+                  >
+                    {mode === 'card'
+                      ? (lang === 'de' ? 'Lieber Rechnung oder Fragen? Anfrage senden' : 'Prefer invoice or have questions? Send a request')
+                      : (lang === 'de' ? 'Direkt mit Karte zahlen' : 'Pay by card instead')}
+                  </button>
                 </div>
               </form>
             )}

@@ -3,7 +3,8 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLang } from '@/i18n/LangContext';
 import type { StringKey } from '@/i18n/strings';
-import BreakfastBowl from '@/components/BreakfastBowl';
+import { lazy } from 'react';
+const BreakfastBowl = lazy(() => import('@/components/BreakfastBowl'));
 
 gsap.registerPlugin(ScrollTrigger);
 

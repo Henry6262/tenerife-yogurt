@@ -79,6 +79,37 @@ export async function reservePreorder(payload: ReservePayload): Promise<{ ok: bo
   return res.json();
 }
 
+export type SubscriptionPlan = 'performance' | 'elite';
+
+/** Start a Stripe Checkout Session for a monthly subscription. */
+export async function startSubscriptionCheckout(
+  planId: SubscriptionPlan,
+  locale: 'de' | 'en',
+  email?: string
+): Promise<void> {
+  const plan = BRAND.plans.find((p) => p.id === planId);
+  const value = plan ? plan.price : 0;
+  track('checkout', { value, currency: 'CHF', plan_id: planId });
+  try {
+    sessionStorage.setItem(PENDING_PURCHASE_KEY, JSON.stringify({ value, currency: 'CHF', planId }));
+  } catch {
+    /* ignore */
+  }
+
+  const res = await fetch('/api/create-subscription-session', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ planId, locale, email }),
+  });
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    throw new Error(data.error || `Subscription checkout failed (${res.status})`);
+  }
+  const { url } = await res.json();
+  if (!url) throw new Error('No checkout URL returned');
+  window.location.href = url;
+}
+
 export { PENDING_PURCHASE_KEY };
 
 export const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
