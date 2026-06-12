@@ -1,25 +1,13 @@
 import { useState } from 'react';
 import { useLang } from '@/i18n/LangContext';
 import { BRAND, fmtCHF, p } from '@/data/brand';
-import { startCheckout, type Sku } from '@/lib/checkout';
+import { type Sku } from '@/lib/checkout';
 import FadeContent from '@/components/FadeContent';
+import OrderModal from '@/components/OrderModal';
 
 export default function ProductLine() {
   const { lang, t } = useLang();
-  const [loadingSku, setLoadingSku] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  const payNow = async (sku: Sku) => {
-    setError(null);
-    setLoadingSku(sku);
-    try {
-      await startCheckout([{ sku, quantity: 1 }], lang);
-      // On success the browser is redirected to Stripe — no need to reset state.
-    } catch (e) {
-      setError(e instanceof Error ? e.message : 'Checkout failed');
-      setLoadingSku(null);
-    }
-  };
+  const [orderSku, setOrderSku] = useState<Sku | null>(null);
 
   return (
     <section id="products" className="relative z-10 py-24 lg:py-32">
@@ -45,7 +33,6 @@ export default function ProductLine() {
         <div className="grid md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
           {BRAND.products.map((product, i) => {
             const isReserve = product.tier === 'reserve';
-            const loading = loadingSku === product.id;
             return (
               <FadeContent key={product.id} blur duration={1000} delay={i * 120}>
                 <div
@@ -68,15 +55,14 @@ export default function ProductLine() {
                   </p>
                   <button
                     type="button"
-                    onClick={() => payNow(product.id as Sku)}
-                    disabled={loading}
-                    className={`block w-full text-center py-3 rounded-xl font-semibold transition-all disabled:opacity-60 disabled:cursor-wait ${
+                    onClick={() => setOrderSku(product.id as Sku)}
+                    className={`block w-full text-center py-3 rounded-xl font-semibold transition-all ${
                       isReserve
                         ? 'bg-primary text-white hover:bg-primary-dark'
                         : 'bg-foreground text-white hover:bg-foreground/90'
                     }`}
                   >
-                    {loading ? t('cta.processing') : t('cta.preorder')}
+                    {t('cta.preorder')}
                   </button>
                 </div>
               </FadeContent>
@@ -84,19 +70,14 @@ export default function ProductLine() {
           })}
         </div>
 
-        {error && (
-          <p className="text-center text-sm text-primary mt-6">{error}</p>
-        )}
-
         <FadeContent blur duration={1000}>
           <p className="text-center text-sm text-muted mt-8">
-            {t('products.payOnDeliveryPrompt')}{' '}
-            <a href="#reserve" className="text-primary font-semibold underline underline-offset-4 hover:text-primary-dark">
-              {t('cta.payOnDelivery')}
-            </a>
+            {t('reserve.trust')}
           </p>
         </FadeContent>
       </div>
+
+      <OrderModal sku={orderSku} onClose={() => setOrderSku(null)} />
     </section>
   );
 }
