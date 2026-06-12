@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { CreditCard } from 'lucide-react';
+import { CreditCard, Instagram } from 'lucide-react';
 import { useLang } from '@/i18n/LangContext';
 import type { StringKey } from '@/i18n/strings';
 import { BRAND } from '@/data/brand';
@@ -48,6 +48,12 @@ export default function Footer() {
           </nav>
 
           <div className="flex items-center gap-4">
+            {contact.instagram && (
+              <a href={contact.instagram} target="_blank" rel="noopener noreferrer" className={`${linkClass} inline-flex items-center gap-1.5`}>
+                <Instagram size={14} />
+                @kravayogurt
+              </a>
+            )}
             <a href={`mailto:${contact.email}`} className={linkClass}>
               {contact.email}
             </a>
@@ -61,8 +67,13 @@ export default function Footer() {
         {/* Thin legal line */}
         <div className="mt-8 pt-5 border-t border-white/10 flex flex-wrap items-center justify-between gap-2 text-xs text-white/35">
           <span>© {new Date().getFullYear()} {BRAND.name} · {BRAND.location}</span>
-          <span>
-            {t('footer.impressum')}: {impressum.legalName} · {impressum.address} · {impressum.city}
+          <span className="inline-flex flex-wrap items-center gap-x-3 gap-y-1">
+            <span>
+              {t('footer.impressum')}: {impressum.legalName} · {impressum.address} · {impressum.city}
+            </span>
+            <Link to="/datenschutz" className="underline-offset-2 hover:text-primary-light hover:underline transition-colors">
+              {t('footer.privacy')}
+            </Link>
           </span>
         </div>
       </div>

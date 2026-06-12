@@ -30,7 +30,7 @@ export const BRAND = {
   } as L,
   location: 'Zürich',
   currency: 'CHF',
-  contact: { email: 'hallo@krava.ch', instagram: '', whatsapp: '' },
+  contact: { email: 'hallo@krava.ch', instagram: 'https://instagram.com/kravayogurt', whatsapp: '' },
   impressum: {
     legalName: 'Krava (Einzelfirma)',
     address: 'Musterstrasse 1',

@@ -87,6 +87,7 @@ export const STRINGS = {
     'footer.impressum': 'Impressum',
     'footer.twint': 'TWINT akzeptiert',
     'footer.rights': 'Alle Rechte vorbehalten.',
+    'footer.privacy': 'Datenschutz',
 
     'articles.title': 'Journal',
     'articles.subtitle': 'Geschichten über Darmgesundheit, Handwerk und die bulgarische Tradition.',
@@ -207,6 +208,7 @@ export const STRINGS = {
     'footer.impressum': 'Legal notice',
     'footer.twint': 'TWINT accepted',
     'footer.rights': 'All rights reserved.',
+    'footer.privacy': 'Privacy',
 
     'articles.title': 'Journal',
     'articles.subtitle': 'Stories on gut health, craft, and the Bulgarian tradition.',
